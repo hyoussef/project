@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName">
+            <value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
+        </property>
+        <property name="locations">
+            <list>
+                <value>classpath:dataAccessDAO.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+	<bean id="basicDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl"
+			value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="acquireIncrement" value="5"></property>
+		<property name="idleConnectionTestPeriod" value="80"></property>
+		<property name="maxPoolSize" value="100"></property>
+		<property name="maxStatements" value="50"></property>
+		<property name="minPoolSize" value="10"></property>
+	</bean>
+<!-- 	<bean id="basicDataSource" class="org.apache.commons.dbcp.BasicDataSource"> -->
+<!-- 		<property name="driverClassName" value="${jdbc.driver}" /> -->
+<!-- 		<property name="url" -->
+<!-- 			value="${jdbc.url}" /> -->
+<!-- 		<property name="username" value="${jdbc.username}" /> -->
+<!-- 		<property name="password" value="${jdbc.password}" /> -->
+<!-- 		<property name="defaultAutoCommit" value="false" /> -->
+<!-- 	</bean> -->
+
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="basicDataSource" />
+		<property name="configLocation" value="classpath:data/mybatis/dataMybatisConfig.xml" />
+	</bean>
+
+	<bean id="mapperBean" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="data.mapper.IMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean id="dataDAO" class="data.access.dao.impl.DataDAO">
+		<property name="mapper" ref="mapperBean"></property>
+	</bean>
+	
+	<bean id="mapperProjectsBean" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="data.mapper.IProjectsMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean id="projectsDAOBean" class="data.access.dao.impl.ProjectsDAO">
+		<property name="projectMapper" ref="mapperProjectsBean"></property>
+	</bean>
+
+</beans>
