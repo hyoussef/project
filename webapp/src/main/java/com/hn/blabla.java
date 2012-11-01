@@ -15,8 +15,7 @@ public class blabla {
 		int v = uuid.version();
 		int variant = uuid.variant();
 		String s = new String();
-		s.
-		
+
 
 	}
 
