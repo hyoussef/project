@@ -3,8 +3,10 @@ package com.hn.service.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.hn.service.jaxrs.rest.IProjectService;
+
 @XmlRootElement( name="Project")
-public class Project {
+public class Project   {
 
 	public Project() {
 		super();

@@ -102,6 +102,11 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.2.7</version>
 		</dependency>
+		<dependency>
+			<groupId>common.service</groupId>
+			<artifactId>data</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>service</finalName>

@@ -6,7 +6,7 @@
 
 	<bean id="projectsService" class="com.hn.service.jaxrs.rest.impl.ProjectService" />
 
-	<jaxrs:server id="projectServer" address="/company/manager">
+	<jaxrs:server id="projectServer" address="/internal/manager">
 		<jaxrs:serviceBeans>
 			<ref bean="projectsService" />
 		</jaxrs:serviceBeans>

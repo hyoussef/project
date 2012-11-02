@@ -1,9 +1,9 @@
 define([
     'collections/entities',
+    'models/entity',
     'underscore',
     'backbone'
-
-], function( EntitiesCollection) {
+], function( EntitiesCollection, EntityModel) {
     var CompanyModel = Backbone.Model.extend({
         defaults: {
             name: "any",
@@ -11,6 +11,8 @@ define([
             entities : new EntitiesCollection()
         },
         initialize: function(){
+            var entities = this.get('entities');
+            this.entities = new EntitiesCollection(entities);
         }
 
     });

@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>data</artifactId>
-	<name>data.persistance</name>
+	<name>data persistance layer</name>
 	<description>common data persistance layer</description>
 	<dependencies>
 		<dependency>

@@ -5,7 +5,10 @@ define([
 ], function(ProjectsModel){
   var ProjectsCollection = Backbone.Collection.extend({
     model: ProjectsModel,
+    url:"projects",
+
     initialize: function(){
+
 
     }
 

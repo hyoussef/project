@@ -5,56 +5,69 @@ define([
     'jquerymobile'
 ], function ($) {
 
-    var initialize = function () {
+    Router = function(){
 
+    }
+    Router.prototype.initialize = function () {
 
         var app_router = new $.mobile.Router([
 
-            {"#projects":{ handler:function (type, params, ui, page, event) {
+            {"#companies":{ handler:function (type, params, ui, page, event) {
                 console.log(type);
 
             }, events:"bs" }},
 
             {
-                "#projects$":{ handler:function (type, params, ui, page, event) {
-                    var $page = $("#projects");
-                    console.log(type);
-                    event.preventDefault();
-                    if (typeof(ui.toPage)!=="string") return;
-                    require(['views/projects/list', 'views/panel'],
-                        function (ProjectListView, PanelView) {
-                            // Call render on the module we loaded in via the dependency array'views/projects/list'
-                            var $content = $page.children(":jqmData(role=content)");
-                            var projectListView = new ProjectListView({ id:'projects_list'});
-                            var panelView = new PanelView({ id:'popupPanel'});
-
-                            $content.html( projectListView.$el);
-                            panelView.$el.appendTo($content);
-                            $page.page();
-                            $page.trigger('create');
-
-                            /*var fromPage = ui.options.fromPage;
-                            var param = app_router.getParams(params[1]);
-                            var u = $.mobile.path.parseUrl(ui.toPage);
-                            ui.options.dataUrl = u.href;
-                            ui.options.changeHash = false;*/
-
-                            $.mobile.changePage($page);
-                        })
-
-                }, events:"bC" }
+                "#companies":{ handler:'showProjects', events:"bC" }
             },
 
-             {"#projects":{ handler:function (event) {
+            {"#companies":{ handler:function(type, params, ui, page, event){
+                console.log(type);
+            }, events:"i" }}
 
-
-             event.preventDefault();
-             }, events:"i" }}
-
-        ]);
-
-        //global.app_router =   global.app_router ||   app_router;
+        ],this);
     };
+
+    Router.prototype.showProjects = function (type, params, ui, page, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var $page = $("#projects");
+        console.log(type);
+
+        if (typeof(ui.toPage)!=="string") return;
+        require(['views/projects/list', 'views/panel', 'collections/companies'],
+            function (ProjectListView, PanelView,CompaniesCollection) {
+                // Call render on the module we loaded in via the dependency array'views/projects/list'
+                var $content = $page.children(":jqmData(role=content)");
+                var companiesCollection = new CompaniesCollection();
+                companiesCollection.fetch({
+                    success : function(bbCollection ,response){
+                        var projectListView = new ProjectListView({ id:'projects_list', collection : bbCollection});
+                        var panelView = new PanelView({ id:'popupPanel'});
+
+                        $content.html( projectListView.$el);
+                        panelView.$el.appendTo($content);
+                        $page.page();
+                        $page.trigger('create');
+                        $.mobile.changePage($page);
+                    },
+                    error: function(collection ,response){
+                        alert("error fetching companies and projects");
+                    }
+
+                });
+
+
+                /*var fromPage = ui.options.fromPage;
+                 var param = app_router.getParams(params[1]);
+                 var u = $.mobile.path.parseUrl(ui.toPage);
+                 ui.options.dataUrl = u.href;
+                 ui.options.changeHash = false;*/
+
+
+            })
+
+    }
 
 
 //	app_router.on('route:showUsers', function () {
@@ -89,7 +102,5 @@ define([
 //	});
 
 
-    return {
-        initialize:initialize
-    };
+    return Router;
 });

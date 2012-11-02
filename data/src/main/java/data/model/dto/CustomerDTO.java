@@ -1,6 +1,6 @@
 package data.model.dto;
 
-public class CustomerDTO {
+public class CustomerDTO  {
 	
 	private Integer id;
 	private String name;

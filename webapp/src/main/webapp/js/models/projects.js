@@ -6,7 +6,8 @@ define([
 ], function(EmployeeModel) {
   var ProjectsModel = Backbone.Model.extend({
     defaults: {
-      score: 10,
+      name: "project",
+      desc: "desc",
       employees : new Backbone.Collection([new EmployeeModel()])
     },
     initialize: function(){

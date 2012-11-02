@@ -1,9 +1,9 @@
 define([
     "collections/projects",
+    "models/projects",
     'underscore',
     'backbone'
-
-], function(ProjectsCollection) {
+], function(ProjectsCollection, ProjectsModel) {
     var EntityModel = Backbone.Model.extend({
         defaults: {
             name: 'RD',
@@ -11,6 +11,8 @@ define([
             projects : new ProjectsCollection()
         },
         initialize: function(){
+            var projects =       this.get('projects');
+            this.projects = new ProjectsCollection(projects);
         }
 
     });

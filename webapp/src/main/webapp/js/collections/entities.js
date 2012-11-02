@@ -5,6 +5,7 @@ define([
 ], function(EntityModel){
     var EntitiesCollection = Backbone.Collection.extend({
         model: EntityModel,
+        url:"entities",
         initialize: function(){
 
         }
