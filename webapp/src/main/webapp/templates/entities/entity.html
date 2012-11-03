@@ -1,29 +1,14 @@
 <div>
-    <ul  data-bind="foreach: entities" data-role='listview'  data-inset='true' data-filter='true' data-filter-placeholder='Search entity...' data-add-back-btn='true'>
-        <li>
-            <h3 data-rel='back' data-bind="text: name"></h3>
-            <!--<p data-bind="text: description"></p>-->
-            <p data-bind="text: name"> </p>
-            <span class="ui-li-count" data-bind="text: projects.length"></span>
-
-            <ul  data-bind="foreach: projects" data-role='listview'  data-inset='true' data-filter='true' data-filter-placeholder='Search ticker or firm name...' data-add-back-btn='true'>
-                <li>
-                    <a href="#"  >
-                        <h3 data-bind="text: name"></h3>
-                        <!--<p data-bind="text: description"></p>-->
-                        <p data-bind="text: name"> </p>
-                    </a>
-
-                    <a href="" data-icon="gear" data-rel="popup" data-transition="pop" data-bind="click: $root.editProject">actions</a>
-                </li>
-            </ul>
+    <ul  data-bind="foreach: entities" data-role='listview'   data-filter='true' data-filter-placeholder='Search entity...' data-inset='true'>
+        <li data-bind="click: $root.getProjects">
+            <a href="#">
+                <h3 data-bind="text: name"></h3>
+                <!--<p data-bind="text: description"></p>-->
+                <p data-bind="text: name"> </p>
+                <span class="ui-li-count" data-bind="text: projects.length"></span>
+            </a>
         </li>
     </ul>
-
-
-
-
-
     <div data-role="popup" id="projectMenu">
         <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
             <li data-role="divider" data-theme="a" >actions</li>

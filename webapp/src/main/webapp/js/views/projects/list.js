@@ -1,6 +1,6 @@
 // Filename: views/projects/list
 define([
-    'collections/companies',
+    'collections/projects',
     'text!templates/projects/list.html',
     'knockout',
     'jquery',
@@ -8,8 +8,8 @@ define([
     'backbone',
     'knockback',
     'jquerymobile',
-    'viewModel/companiesVwModel'
-], function (CompaniesCollection,projectListTemplate, ko) {
+    'viewModel/projectsViewModel'
+], function (ProjectsCollection,projectListTemplate, ko) {
 
     var projectListView = Backbone.View.extend({
         //el:$("#projects"),
@@ -18,25 +18,9 @@ define([
             var self = this;
             self.el = "#" + self.id;
 
-            /*this.collection = new ProjectsCollection();
-             self.collection = self.collection.add({ name:"Twitter"});
-             self.collection = self.collection.add({ name:"Facebook"});
-             self.collection = self.collection.add({ name:"Myspace", score:20});
-             //
-             this.entitiesCollection = new EntitiesCollection();
-             self.entitiesCollection = self.entitiesCollection.add({name:"RD", projects : self.collection});
-             //
-             self.companiesCollection =  self.companiesCollection.add({name : "alstom" , entities : self.entitiesCollection })
-             */
-
-            self.view_model = new CompaniesVwModel(this.collection );
+            self.view_model = new ProjectsViewModel(this.collection );
             self.render();
 
-        },
-
-        exampleBind:function (model) {
-            this.$el.children(":jqmData(role=content)").find(":jqmData(role=listview)").listview('refresh');
-            console.log(model);
         },
 
         render:function () {

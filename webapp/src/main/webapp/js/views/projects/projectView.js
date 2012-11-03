@@ -7,8 +7,7 @@ define([
     'underscore',
     'backbone',
     'knockback',
-    'jquerymobile',
-    'viewModel/projectsViewModel'
+    'viewModel/singleProjectVwModel'
 
 ], function (project,projectViewTemplate, ko) {
 
@@ -18,7 +17,7 @@ define([
         initialize:function () {
             var self = this;
             self.el = "#" + self.id;
-            self.view_model = new ProjectsViewModel(self.model);
+            self.view_model = new SingleProjectViewModel(self.model);
             self.render();
         },
 

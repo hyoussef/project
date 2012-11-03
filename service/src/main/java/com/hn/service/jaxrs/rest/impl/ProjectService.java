@@ -19,7 +19,7 @@ import com.hn.service.model.Project;
 public class ProjectService implements IProjectService{
 
 	@GET
-	@Path("companies/{cid]/entities/{eid}/projects/{pid}")
+	@Path("companies/{cid}/entities/{eid}/projects/{pid}")
 	public Project getProject(@PathParam("cid")String companyId,@PathParam("eid")String entityId, @PathParam("pid")String projectId) {
 		Project proj = new Project();
 		
@@ -42,7 +42,7 @@ public class ProjectService implements IProjectService{
 		return cs;		
 	}
 	@GET
-	@Path("companies/{cid]/entities")
+	@Path("companies/{cid}/entities")
 	public List<Entity> getEntities(@PathParam("cid")String companyId) {
 	
 		Entity e = new Entity();
@@ -63,7 +63,7 @@ public class ProjectService implements IProjectService{
 	}
 	@GET
 	
-	@Path("companies/{cid]/entities/{eid}/projects")
+	@Path("companies/{cid}/entities/{eid}/projects")
 	public List<Project> getProjects(@PathParam("cid")String companyId,@PathParam("eid")String entityId ) {
 		Project proj = new Project();
 		

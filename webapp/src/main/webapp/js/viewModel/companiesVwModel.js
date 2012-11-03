@@ -13,12 +13,14 @@ define([
         this.collection = ocompaniesCollection;
 
         this.companies = kb.collectionObservable(this.collection);
-        this.companies.entities = kb.collectionObservable(this.collection.entities);
     }
 
-    CompaniesVwModel.prototype.getEntities = function(oCompanyObj){
-        console.log(oCompanyObj);
-
+    CompaniesVwModel.prototype.getEntities = function(oCompany){
+        console.log(oCompany);
+        var model = oCompany.model();
+        var bkEntitiesCollection = model.get('entities');
+        global.Router.showEntities(null, null, null, null, null,bkEntitiesCollection);
+        model.set('entities' ,bkEntitiesCollection )
     }
 
     CompaniesVwModel.prototype.editProject = function(oProjectObj){

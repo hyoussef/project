@@ -18,7 +18,7 @@ define([
             }, events:"bs" }},
 
             {
-                "#companies":{ handler:'showProjects', events:"bC" }
+                "#companies":{ handler:'showCompanies', events:"bC" }
             },
 
             {"#companies":{ handler:function(type, params, ui, page, event){
@@ -28,21 +28,22 @@ define([
         ],this);
     };
 
-    Router.prototype.showProjects = function (type, params, ui, page, event) {
+    Router.prototype.showCompanies = function (type, params, ui, page, event) {
         event.preventDefault();
         event.stopPropagation();
-        var $page = $("#projects");
+        $.mobile.loading( 'show');
+        var $page = $("#companies");
         console.log(type);
 
         if (typeof(ui.toPage)!=="string") return;
-        require(['views/projects/list', 'views/panel', 'collections/companies'],
-            function (ProjectListView, PanelView,CompaniesCollection) {
+        require(['views/companies/list', 'views/panel', 'collections/companies'],
+            function (CompaniesListView, PanelView,CompaniesCollection) {
                 // Call render on the module we loaded in via the dependency array'views/projects/list'
                 var $content = $page.children(":jqmData(role=content)");
                 var companiesCollection = new CompaniesCollection();
                 companiesCollection.fetch({
                     success : function(bbCollection ,response){
-                        var projectListView = new ProjectListView({ id:'projects_list', collection : bbCollection});
+                        var projectListView = new CompaniesListView({ id:'companies_list', collection : bbCollection});
                         var panelView = new PanelView({ id:'popupPanel'});
 
                         $content.html( projectListView.$el);
@@ -50,9 +51,11 @@ define([
                         $page.page();
                         $page.trigger('create');
                         $.mobile.changePage($page);
+                        $.mobile.loading( 'hide');
                     },
                     error: function(collection ,response){
                         alert("error fetching companies and projects");
+                        $.mobile.loading( 'hide');
                     }
 
                 });
@@ -66,40 +69,110 @@ define([
 
 
             })
+    }
+
+    Router.prototype.showEntities = function (type, params, ui, page, event,entitiesCollection) {
+        if(event !==undefined && event !== null){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        $.mobile.loading( 'show');
+        var $page = $("#entities");
+        console.log(type);
+        require(['views/entities/list'], function(EntitiesView){
+                var $page = $("#entities");
+                var $content = $page.children(":jqmData(role=content)");
+                var bkEntitiesCollection = entitiesCollection || new EntitiesCollection();
+                bkEntitiesCollection.fetch({
+                    success:function(bbCollection ,response){
+                        var entitiesView = new EntitiesView({id :'entities_list' , collection :bkEntitiesCollection});
+                        $content.html(entitiesView.$el);
+                        $page.page();
+                        $page.trigger('create');
+                        $.mobile.changePage($page);
+                        $.mobile.loading( 'hide');
+
+                    },
+                    error: function(collection ,response){
+                        $.mobile.loading( 'hide');
+                        alert("error fetching entities");
+                    }
+                });
+
+
+            }
+        );
 
     }
 
 
-//	app_router.on('route:showUsers', function () {
-//	require(['views/users/list'], function(UserListView) {
-//	// As above, call render on our loaded module
-//	// 'views/users/list'
-//	var userListView = new UserListView();
-//	userListView.render();
-//	});
-//	});
-//	app_router.on('route:defaultAction', function (actions) {
-//	require(['views/home/main'], function(MainHomeView) {
-//	// We have no matching route, lets display the home page
-//	var mainHomeView = new MainHomeView();
-//	mainHomeView.render();
-//	});
-//	});
-//	Backbone.history.start();
-//	var a = jQuery(document);
-//	jQuery(document).on('pagebeforecreate', '#projects',
-//	function(event){
-//	require(['views/projects/list'], function(ProjectListView) {
-//	// Call render on the module we loaded in via the dependency array'views/projects/list'
-//	var projectListView = new ProjectListView();
-//	projectListView.render();
-//	})
-//	});
-//	jQuery(document).on('pagecreate', '#projects',  function(event){
-//	jQuery(this).page();
-//	// Enhance the listview we just injected.
-//	jQuery(this).children( ":jqmData(role=content)" ).find( ":jqmData(role=listview)" ).listview();
-//	});
+    Router.prototype.showProjects = function (type, params, ui, page, event,projectsCollection) {
+        if(event !==undefined && event !== null){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        $.mobile.loading( 'show');
+        var $page = $("#projects");
+        console.log(type);
+        require(['views/projects/list'], function(ProjectListView){
+                var $page = $("#projects");
+                var $content = $page.children(":jqmData(role=content)");
+                var bkprojectsCollection = projectsCollection || new ProjectsCollection();
+                bkprojectsCollection.fetch({
+                    success:function(bbCollection ,response){
+                        var projectsView = new ProjectListView({id :'projects_list' , collection :bkprojectsCollection});
+                        $content.html(projectsView.$el);
+                        $page.page();
+                        $page.trigger('create');
+                        $.mobile.changePage($page);
+                        $.mobile.loading( 'hide');
+
+                    },
+                    error: function(collection ,response){
+                        $.mobile.loading( 'hide');
+                        alert("error fetching projects");
+                    }
+                });
+
+
+            }
+        );
+
+    }
+
+    Router.prototype.showProject = function (type, params, ui, page, event,projectModel) {
+        if(event !==undefined && event !== null){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        $.mobile.loading( 'show');
+        var $page = $("#project");
+        require(['views/projects/projectView'], function(ProjectView){
+                var $page = $("#project");
+                var $content = $page.children(":jqmData(role=content)");
+                var bkprojectsModel = projectModel || new ProjectsModel();
+                bkprojectsModel.fetch({
+                    success:function(bbModel ,response){
+                        var projectView = new ProjectView({ model :bkprojectsModel});
+                        $content.html(projectView.$el);
+                        $page.page();
+                        $page.trigger('create');
+                        $.mobile.changePage($page);
+                        $.mobile.loading( 'hide');
+
+                    },
+                    error: function(collection ,response){
+                        $.mobile.loading( 'hide');
+                        alert("error fetching projects");
+                    }
+                });
+
+
+            }
+        );
+
+    }
+
 
 
     return Router;

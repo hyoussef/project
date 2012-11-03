@@ -1,14 +1,16 @@
 define([
     'knockback'
 ],function(ko){
-
-ProjectsViewModel = function(collection){
-    this.collection = collection;
-    this.projects = kb.collectionObservable(this.collection);
+SingleProjectViewModel = function(model){
+    this.model = model;
+    this.project = kb.viewModel(this.model);
 }
+
+/*
 ProjectsViewModel.prototype.getProject = function(oProjectVwModel){
     console.log(oProjectVwModel);
     var model =  oProjectVwModel.model();
     global.Router.showProject(null, null, null, null, null,model);
 }
-})
+*/
+});

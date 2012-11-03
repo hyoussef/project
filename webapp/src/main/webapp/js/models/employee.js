@@ -1,8 +1,9 @@
 define([
     'underscore',
-    'backbone'
+    'backbone',
+    'backboneRelational'
 ], function() {
-    var EmployeeModel = Backbone.Model.extend({
+    var EmployeeModel = Backbone.RelationalModel.extend({
         defaults: {
             first_name: "houssem",
             last_name : "youssef"

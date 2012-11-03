@@ -1,21 +1,21 @@
 // Filename: views/projects/list
 define([
-    'collections/companies',
-    'text!templates/companies/companies.html',
+    'collections/entities',
+    'text!templates/entities/entity.html',
     'knockout',
     'jquery',
     'underscore',
     'backbone',
     'knockback',
     'jquerymobile',
-    'viewModel/companiesVwModel'
-], function (CompaniesCollection,companiesListTemplate, ko) {
+    'viewModel/entitiesVwModel'
+], function (CompaniesCollection,entitiesListTemplate, ko) {
 
     var companiesListView = Backbone.View.extend({
         initialize:function () {
             var self = this;
             self.el = "#" + self.id;
-            self.view_model = new CompaniesVwModel(this.collection );
+            self.view_model = new EntitiesVwModel(this.collection );
             self.render();
 
         },
@@ -23,7 +23,7 @@ define([
 
         render:function () {
             var self = this;
-            self.$el = $(companiesListTemplate);
+            self.$el = $(entitiesListTemplate);
             self.$el.attr('id', self.id);
             ko.applyBindings(self.view_model, self.$el[0]);
         }

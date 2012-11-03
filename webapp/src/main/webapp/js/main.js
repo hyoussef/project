@@ -32,6 +32,7 @@ require([
     var appRouter = new Router();
     appRouter.initialize();
 
+
     global.$ = global.$ || $;
     global.Router = global.Router || appRouter;
 

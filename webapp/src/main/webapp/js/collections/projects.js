@@ -7,10 +7,13 @@ define([
     model: ProjectsModel,
     url:"projects",
 
-    initialize: function(){
+      initialize: function( models, options ) {
+          options || (options = {});
+          if(options.url !== undefined){
+              this.url = options.url;
+          }
+      }
 
-
-    }
 
   });
  

@@ -1,13 +1,19 @@
 // Filename: app.js
 define([
+    'backbone',
+    'underscore'
 
-], function(){
+], function(Backbone , _){
 
-  var initialize = function(){
+    global.Backbone = global.Backbone ||   Backbone;
+    global._ = global._ ||   _ ;
 
-   };
 
-  return { 
-    initialize: initialize
-  };
+    var initialize = function(){
+
+    };
+
+    return {
+        initialize: initialize
+    };
 });
