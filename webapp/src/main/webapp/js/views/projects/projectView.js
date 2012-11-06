@@ -4,6 +4,7 @@ define([
     'text!templates/projects/projectView.html',
     'knockout',
     'jquery',
+    'jeditable',
     'underscore',
     'backbone',
     'knockback',
@@ -26,6 +27,17 @@ define([
             var self = this;
             self.$el = $(projectViewTemplate);
             self.$el.attr('id', self.id);
+
+            self.$('.editable').editable(function(value, settings) {
+                console.log(this);
+                console.log(value);
+                console.log(settings);
+                var name = self.view_model.project.name();
+                return(value);
+            }, {
+                type    : 'textarea',
+                submit  : 'OK'
+            });
             ko.applyBindings(self.view_model, self.$el[0]);
 
 

@@ -6,6 +6,8 @@ define([
 ], function ($) {
 
     Router = function(){
+        this.isInitialized = false;
+        return this;
 
     }
     Router.prototype.initialize = function () {
@@ -23,9 +25,25 @@ define([
 
             {"#companies":{ handler:function(type, params, ui, page, event){
                 console.log(type);
-            }, events:"i" }}
+            }, events:"i" }},
+
+            {
+                "#entities":{ handler:'showEntities', events:"bC" }
+            },
+
+            {
+                "#projects":{ handler:'showProjects', events:"bC" }
+            },
+            {
+                "#project":{ handler:'showProject', events:"bC" }
+            }
+
 
         ],this);
+
+        this.isInitialized = true;
+        //
+        return this;
     };
 
     Router.prototype.showCompanies = function (type, params, ui, page, event) {
@@ -79,7 +97,7 @@ define([
         $.mobile.loading( 'show');
         var $page = $("#entities");
         console.log(type);
-        require(['views/entities/list'], function(EntitiesView){
+        require(['views/entities/list','collections/entities'], function(EntitiesView, EntitiesCollection){
                 var $page = $("#entities");
                 var $content = $page.children(":jqmData(role=content)");
                 var bkEntitiesCollection = entitiesCollection || new EntitiesCollection();
@@ -114,7 +132,7 @@ define([
         $.mobile.loading( 'show');
         var $page = $("#projects");
         console.log(type);
-        require(['views/projects/list'], function(ProjectListView){
+        require(['views/projects/list','collections/projects'], function(ProjectListView , ProjectsCollection){
                 var $page = $("#projects");
                 var $content = $page.children(":jqmData(role=content)");
                 var bkprojectsCollection = projectsCollection || new ProjectsCollection();
@@ -147,7 +165,7 @@ define([
         }
         $.mobile.loading( 'show');
         var $page = $("#project");
-        require(['views/projects/projectView'], function(ProjectView){
+        require(['views/projects/projectView', 'models/projects'], function(ProjectView, ProjectsModel){
                 var $page = $("#project");
                 var $content = $page.children(":jqmData(role=content)");
                 var bkprojectsModel = projectModel || new ProjectsModel();
