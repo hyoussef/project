@@ -14,7 +14,7 @@ define([
         var model =  oEntityVwModel.model();
         var projectsCollection = model.get('projects');
         global.Router.showProjects(null, null, null, null, null,projectsCollection);
-        model.set('projects' ,projectsCollection )
+        //kb.release(this);
     }
 
     return  EntitiesVwModel;

@@ -17,7 +17,6 @@ require.config({
         'jqmr': 'libs/jquery/jquery.mobile.router.min',
         knockout : 'libs/knockout-2.1.0.debug',
         knockback:'libs/knockback-0.16.7'
-
     }
 
 });
@@ -34,6 +33,7 @@ require([
 
     $(document).on( "pagebeforechange", function( e, data ) {
         if ( typeof data.toPage === "string" ) {
+
             if(global.Router === undefined || global.Router === null || global.Router.isInitialized === false){
                 var orgEvent = jQuery.extend({}, e);
                 e.preventDefault();
@@ -45,7 +45,9 @@ require([
             console.log("router is initialized");
             //from now on the router will handle navigation
             $('#document').unbind('pagebeforechange');
+
         }
+
     });
 
     require(['router'],function(Router){

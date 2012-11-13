@@ -17,7 +17,6 @@ define([
             init: function(element, valueAccessor, allBindingsAccessor) {
                 // get the options that were passed in
                 var options = allBindingsAccessor().jeditableOptions || {};
-                options = { type: 'textarea',submit: 'OK',tooltip: 'Click to edit...',   indicator : '<img src="css/images/ajax-loader.gif">'};
 
                 // "submit" should be the default onblur action like regular ko controls
                 if (!options.onblur) {

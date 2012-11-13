@@ -1553,7 +1553,9 @@ kb.CollectionObservable = (function() {
     }
     id_attribute = model.hasOwnProperty(model.idAttribute) ? model.idAttribute : 'cid';
     return _.find(kb.utils.wrappedObservable(this)(), function(test) {
-      return test.__kb.object[id_attribute] === model[id_attribute];
+        if (test.__kb.object){
+            return test.__kb.object[id_attribute] === model[id_attribute];
+        }
     });
   };
 

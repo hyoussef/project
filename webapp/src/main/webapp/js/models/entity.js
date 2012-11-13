@@ -14,15 +14,17 @@ define([
                 key: 'projects',
                 relatedModel: ProjectsModel,
                 collectionType: ProjectsCollection,
-                collectionOptions: function( instance ) { return { 'url':instance.url() +  '/projects'  } }
-
+                collectionOptions: function( instance ) { return { 'url':instance.url() +  '/projects'  } },
+                reverseRelation: {
+                    key: 'fromEntity'
+                }
             }
         ],
-        defaults: {
+        /*defaults: {
             name: 'RD',
             adresse : "entity adresse ",
             projects : new ProjectsCollection()
-        },
+        },*/
         initialize: function(){
 
         }

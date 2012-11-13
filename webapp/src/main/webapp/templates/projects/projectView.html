@@ -1,14 +1,14 @@
 <div>
     <!-- project title-->
-    <h2  data-bind="jeditable: project.name, jeditableOptions: {}"></h2>
+    <h2  data-bind="jeditable: project.name, jeditableOptions: {type: 'textarea',submit: 'OK'}"></h2>
     <!-- project description-->
-    <p data-bind="text: project.desc" ></p>
+    <p data-bind="jeditable: project.desc" ></p>
 
     <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
         <div data-role="collapsible">
             <h2>Employee</h2>
             <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d" data-bind="foreach: project.employees" >
-                <li><a href="#" data-bind="text: first_name">Adam Kinkaid</a></li>
+                <li><a href="#" data-bind="jeditable: first_name">Adam Kinkaid</a></li>
             </ul>
         </div>
         <div data-role="collapsible">

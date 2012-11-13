@@ -65,21 +65,15 @@ public class ProjectService implements IProjectService{
 	
 	@Path("companies/{cid}/entities/{eid}/projects")
 	public List<Project> getProjects(@PathParam("cid")String companyId,@PathParam("eid")String entityId ) {
-		Project proj = new Project();
-		
-		proj.setName("project 1 name");
-		proj.setDescription("project description");
-		proj.setId("12082");
-		
-		Project proj2 = new Project();
-		proj2.setName("project 2 name");
-		proj2.setDescription("project description");
-		proj2.setId("1977917");
-				
-
 		List<Project> cs = new ArrayList<Project>();
-		cs.add(proj);
-		cs.add(proj2);
+		for (Integer i = 0 ; i<100; i++){
+			Project proj = new Project();
+			
+			proj.setName("project" + i);
+			proj.setDescription("description" + i);
+			proj.setId(i.toString());
+			cs.add(proj);			
+		}
 		return cs;		
 	}
 

@@ -20,7 +20,7 @@ define([
         var model = oCompany.model();
         var bkEntitiesCollection = model.get('entities');
         global.Router.showEntities(null, null, null, null, null,bkEntitiesCollection);
-        model.set('entities' ,bkEntitiesCollection )
+        //kb.release(this);
     }
 
     return  CompaniesVwModel;
