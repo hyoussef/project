@@ -39,17 +39,10 @@
 
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="basicDataSource" />
-		<property name="configLocation" value="classpath:data/mybatis/dataMybatisConfig.xml" />
+		<property name="configLocation" value="classpath:/data/mybatis/dataMyBatisConfig.xml" />
 	</bean>
 
-	<bean id="mapperBean" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="data.mapper.IMapper" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
-	</bean>
 	
-	<bean id="dataDAO" class="data.access.dao.impl.DataDAO">
-		<property name="mapper" ref="mapperBean"></property>
-	</bean>
 	
 	<bean id="mapperProjectsBean" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="data.mapper.IProjectsMapper" />

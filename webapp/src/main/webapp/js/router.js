@@ -106,7 +106,7 @@ define([
                         $.error("invalid query params!");;
                     }
                     bkEntitiesCollection = new EntitiesCollection(null , {cmpId :queryParamsObj.cmp });
-                    options = {dataUrl: "#entities?cmp="+ queryParamsObj.cmp };
+                    options = {dataUrl:u.hash };
                 }
                 bkEntitiesCollection.fetch({
                     success:function(bbCollection ,response){
@@ -114,9 +114,10 @@ define([
                         $content.html(entitiesView.$el);
                         $page.page();
                         $page.trigger('create');
+                        options.reloadPage = false;
+                        options.allowSamePageTransition = false;
                         $.mobile.changePage($page , options);
                         $.mobile.loading( 'hide');
-
                     },
                     error: function(collection ,response){
                         $.mobile.loading( 'hide');
@@ -127,7 +128,7 @@ define([
         );
 
     }
- Router.prototype.showProjects = function (type, params, ui, page, event,projectsCollection) {
+    Router.prototype.showProjects = function (type, params, ui, page, event,projectsCollection) {
         if(event !==undefined && event !== null){
             event.preventDefault();
             event.stopPropagation();
@@ -154,18 +155,20 @@ define([
                         $.error("invalid query params!");;
                     }
                     bkprojectsCollection = new ProjectsCollection(null , {cmpId :queryParamsObj.cmp , entId :queryParamsObj.ent  });
-                    options = {dataUrl: "#projects?cmp="+ queryParamsObj.cmp +"&ent="+queryParamsObj.ent }  ;
-
+//                    options = {dataUrl: "#projects?cmp="+ queryParamsObj.cmp +"&ent="+queryParamsObj.ent };
+                    options = {dataUrl:u.hash};
                 }
+
                 bkprojectsCollection.fetch({
                     success:function(bbCollection ,response){
                         var projectsView = new ProjectListView({id :'projects_list' , collection :bkprojectsCollection});
                         $page.page();
                         $content.html(projectsView.$el);
                         $page.trigger('create');
+                        options.reloadPage = false;
+                        options.allowSamePageTransition = false;
                         $.mobile.changePage($page, options);
                         $.mobile.loading( 'hide');
-
                     },
                     error: function(collection ,response){
                         $.mobile.loading( 'hide');
@@ -201,7 +204,8 @@ define([
                         $.error("invalid query params!");
                     }
                     bkprojectsModel = new ProjectsModel(null , {cmpId :queryParamsObj.cmp , entId :queryParamsObj.ent , id : queryParamsObj.id });
-                    options = {dataUrl:"#MyProject?ent="+ queryParamsObj.ent + "cmp="+ bkprojectsModel.cmpId +"&id="+  queryParamsObj.id};
+                    //options = {dataUrl:"#MyProject?ent="+ queryParamsObj.ent + "cmp="+ bkprojectsModel.cmpId +"&id="+  queryParamsObj.id};
+                    options = {dataUrl:u.hash };
                 }
                 bkprojectsModel.fetch({
                     success:function(bbModel ,response){
@@ -209,6 +213,9 @@ define([
                         $page.page();
                         $content.html(projectView.$el);
                         $page.trigger('create');
+                        options.reloadPage = false;
+                        options.allowSamePageTransition = false;
+                        options.transition = 'slidefade';
                         $.mobile.changePage($page, options);
                         $.mobile.loading( 'hide');
                     },

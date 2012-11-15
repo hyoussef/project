@@ -1,27 +1,33 @@
 package data.model.dto;
 
+import data.model.def.ICompany;
+import data.model.def.IVille;
 
 
 
-public class CompanyDTO {
+
+public class CompanyDTO implements ICompany {
 	
-	private String id;
+	public CompanyDTO() {
+		super();
+	}
+	private long id;
 	private String code;
 	private String name;
 	private String description;
 	private String adress;
-	private String ville;
+	private IVille ville;
 	public String getCode() {
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 	
-    public void setId(String id) {
+    public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -49,11 +55,11 @@ public class CompanyDTO {
 		this.adress = adress;
 	}
 	
-    public String getVille() {
+    public IVille getVille() {
 		return ville;
 	}
 	
-    public void setVille(String ville) {
+    public void setVille(IVille ville) {
 		this.ville = ville;
 	}
 	

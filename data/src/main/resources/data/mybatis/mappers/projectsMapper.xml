@@ -8,25 +8,74 @@
 		<result column="description" property="description" />
 		<result column="start_date" property="start_date" />
 		<result column="end_date" property="end_date" />
-		<association property="company" javaType="Company">
-			<id column="id" property="id" />
-			<result column="code" property="code"/>
-			<result column="name" property="name"/>
-			<result column="adresse" property="adress"/>
-			<association property="ville" javaType="Ville">
-				<id column="id" property="id" />
-				<result column="name" property="name"/>
-			</association>
-		</association>		
+		<association property="company" resultMap="companyMap" />
 	</resultMap>
-	
-	
+
+	<resultMap id="companyMap" type="Company">
+		<id column="id" property="id" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="adresse" property="adress" />
+		<association property="ville" resultMap="villeMap" />
+	</resultMap>
+
+	<resultMap id="villeMap" type="Ville">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+	</resultMap>
+
+	<resultMap id="EntityMap" type="Entity">
+		<id column="id" property="id" />
+		<result column="entity" property="name" />
+		<association property="company" resultMap="companyMap"></association>
+	</resultMap>
+
+
 
 	<select id="getListProjects" parameterType="map" resultMap="ProjectsMap">
-		select *
-		from project as proj , company as comp , villes as v
-		where proj.company_id = comp.id and comp.ville_id = v.id
+		select * from project as proj inner join company as comp left join
+		villes as v on comp.ville_id = v.id
 	</select>
 	
-	
+	<select id="getProject" parameterType="map" resultMap="ProjectsMap">
+		select * from project as proj , company as comp left join
+		villes as v on comp.ville_id = v.id 
+		where proj.company_id= comp.id and proj.id = #{project.id}
+	</select>
+
+	<select id="getListProjectsByEntity" parameterType="map"
+		resultMap="ProjectsMap">
+		select * from project as proj, project_contact as
+		prj_contact , company_contact as cmp_contact, company_entity as entity
+		where prj_contact.project_id = proj.id
+		and prj_contact.contact_id =
+		cmp_contact.id and cmp_contact.entity_id =
+		entity.id
+		and entity.id =
+		#{entity.id};
+	</select>
+
+	<select id="getListProjectsByCompany" parameterType="map"
+		resultMap="ProjectsMap">
+		select * from project as proj, company as comp left join
+		villes as v on comp.ville_id = v.id
+		where comp.id = #{company.id}
+	</select>
+
+	<select id="getListCompanies" parameterType="map" resultMap="companyMap">
+		select * from company as comp left join
+		villes as v on comp.ville_id =
+		v.id
+	</select>
+
+	<select id="getListEntitiesbyCompany" parameterType="map"
+		resultMap="EntityMap">
+		select * from company_entity as comp_entity , company as
+		comp left join
+		villes as v on
+		comp.ville_id = v.id
+		where comp_entity.company_id = comp.id and comp_entity.company_id = #{company.id}
+	</select>
+
+
 </mapper>

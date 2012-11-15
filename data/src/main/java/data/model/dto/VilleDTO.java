@@ -1,25 +1,43 @@
 package data.model.dto;
 
+import data.model.def.IVille;
 
 
-public class VilleDTO  {
+
+public class VilleDTO implements IVille  {
 	
-	private String id;
+	private long id;
 	private String name;
 	
-    public String getId() {
+    /* (non-Javadoc)
+	 * @see data.model.dto.IVille#getId()
+	 */
+    @Override
+	public long getId() {
 		return id;
 	}
 	
-    public void setId(String id) {
+    /* (non-Javadoc)
+	 * @see data.model.dto.IVille#setId(long)
+	 */
+    @Override
+	public void setId(long id) {
 		this.id = id;
 	}
 	
-    public String getName() {
+    /* (non-Javadoc)
+	 * @see data.model.dto.IVille#getName()
+	 */
+    @Override
+	public String getName() {
 		return name;
 	}
 	
-    public void setName(String name) {
+    /* (non-Javadoc)
+	 * @see data.model.dto.IVille#setName(java.lang.String)
+	 */
+    @Override
+	public void setName(String name) {
 		this.name = name;
 	}
 

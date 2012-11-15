@@ -1,9 +1,16 @@
 package data.access.dao;
 
 import java.util.List;
+import data.model.def.ICompany;
+import data.model.def.IEntity;
+import data.model.def.IProject;
 
-import data.model.dto.ProjectDTO;
 
 public interface IProjectsDAO {
-	List<ProjectDTO> getListProjects ();
+	List<IProject> getListProjects ();
+	List<IProject> getListProjectsByEntity (IEntity entity);
+	List<IProject> getListProjectsByCompany (ICompany company);
+	List<ICompany> getListCompanies();
+	List<IEntity> getListEntitiesByCompany(ICompany company);
+	IProject getProject(IProject prj);
 }

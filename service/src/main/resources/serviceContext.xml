@@ -3,12 +3,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+		
+	<import resource="classpath:applicationContext.xml"/>
+	
+	<bean id="projectService" class="com.hn.service.impl.ProjectServiceImpl">
+		<property name="projectDAO" ref="projectsDAOBean"></property>
+	</bean>
 
-	<bean id="projectsService" class="com.hn.service.jaxrs.rest.impl.ProjectService" />
+	<bean id="projectsRestService" class="com.hn.service.jaxrs.rest.impl.ProjectRestService">
+	<property name="projectService" ref="projectService"></property>
+	</bean>
 
 	<jaxrs:server id="projectServer" address="/internal/manager">
 		<jaxrs:serviceBeans>
-			<ref bean="projectsService" />
+			<ref bean="projectsRestService" />
 		</jaxrs:serviceBeans>
 
 		<jaxrs:providers>
