@@ -1,6 +1,7 @@
 package data.model.def;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -33,5 +34,10 @@ public interface IProject {
 	@XmlElement(name="fromEntity")
 	IEntity getEntity();
 	void setEntity(IEntity entity);
+	
+	@XmlElement(name="contacts")
+	List<IContact> getContacts();
+	void setContacts(List<IContact> contacts);
+	
 
 }

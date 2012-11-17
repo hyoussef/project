@@ -9,6 +9,7 @@
 		<result column="start_date" property="start_date" />
 		<result column="end_date" property="end_date" />
 		<association property="company" resultMap="companyMap" />
+		<collection property="contacts" resultMap="contactMap" />
 	</resultMap>
 
 	<resultMap id="companyMap" type="Company">
@@ -30,17 +31,35 @@
 		<association property="company" resultMap="companyMap"></association>
 	</resultMap>
 
+	<resultMap id="contactMap" type="Contact">
+		<id column="id" property="id" />
+		<result column="first_name" property="firstName" />
+		<result column="last_name" property="lastName" />
+		<result column="email" property="email" />
+		<result column="phone_mobile" property="mobileNum" />
+	</resultMap>
+
 
 
 	<select id="getListProjects" parameterType="map" resultMap="ProjectsMap">
 		select * from project as proj inner join company as comp left join
 		villes as v on comp.ville_id = v.id
 	</select>
-	
+
 	<select id="getProject" parameterType="map" resultMap="ProjectsMap">
-		select * from project as proj , company as comp left join
-		villes as v on comp.ville_id = v.id 
-		where proj.company_id= comp.id and proj.id = #{project.id}
+		select *
+		from project as proj ,
+		project_contact as pcontact ,
+		company_entity as cmp_entity ,
+		company_contact as cmp_contact ,
+		company as comp left join villes as v on comp.ville_id = v.id
+		where proj.company_id= comp.id
+		and pcontact.project_id = proj.id
+		and pcontact.contact_id = cmp_contact.id
+		and cmp_contact.entity_id =
+		cmp_entity.id
+		and cmp_entity.company_id = comp.id
+		and proj.id = #{project.id}
 	</select>
 
 	<select id="getListProjectsByEntity" parameterType="map"
@@ -74,7 +93,9 @@
 		comp left join
 		villes as v on
 		comp.ville_id = v.id
-		where comp_entity.company_id = comp.id and comp_entity.company_id = #{company.id}
+		where
+		comp_entity.company_id = comp.id and comp_entity.company_id =
+		#{company.id}
 	</select>
 
 

@@ -13,8 +13,13 @@
         </div>
         <div data-role="collapsible">
             <h2>Contacts</h2>
-            <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d" data-bind="foreach: project.employees" >
-                <li><a href="#">Adam Kinkaid</a></li>
+            <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d" data-bind="foreach: project.contacts" >
+                <li  data-bind=" ">
+                    <a>
+                        <h3 href="mailto:" data-bind="attr:{href: 'mailto:'+ email},text: first_name"></h3>
+                        <p  data-bind="text: email"></p>
+                    </a>
+                </li>
             </ul>
         </div>
         <div data-role="collapsible">

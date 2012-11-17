@@ -2,10 +2,12 @@ package data.model.dto;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import data.model.def.ICompany;
+import data.model.def.IContact;
 import data.model.def.IEntity;
 import data.model.def.IProject;
 
@@ -18,6 +20,7 @@ public class ProjectDTO implements IProject{
 	private String description;
 	private ICompany company;
 	private IEntity entity;
+	private List<IContact> contacts; 
 	private Date startDate;
 	private Date endDate; 
 	
@@ -103,6 +106,18 @@ public class ProjectDTO implements IProject{
 	@Override
 	public void setEntity(IEntity entity) {
 		this.entity = entity;
+	}
+
+
+
+	@Override
+	public List<IContact> getContacts() {
+		return contacts;
+	}
+
+	@Override
+	public void setContacts(List<IContact> contacts) {
+		this.contacts = contacts;
 	}
 
 

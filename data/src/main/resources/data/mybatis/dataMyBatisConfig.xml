@@ -7,12 +7,10 @@
 		<typeAlias alias="Company" type="data.model.dto.CompanyDTO"/>
 		<typeAlias alias="Ville" type="data.model.dto.VilleDTO"/>
 		<typeAlias alias="Entity" type="data.model.dto.EntityDTO"/>
-		
+		<typeAlias alias="Contact" type="data.model.dto.ContactDTO"/>		
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="data/mybatis/mappers/projectsMapper.xml"/>
 	</mappers>
 </configuration>
-
-  
