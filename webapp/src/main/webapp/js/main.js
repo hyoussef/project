@@ -51,6 +51,7 @@ require([
     });
 
     require(['router'],function(Router){
+
         var router = new Router().initialize();
         global.$ = global.$ || $;
         global.Router = global.Router || router;

@@ -7,16 +7,16 @@
     <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
         <div data-role="collapsible">
             <h2>Employee</h2>
-            <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d" data-bind="foreach: project.employees" >
+            <ul data-role="listview" data-filter="true" data-divider-theme="d" data-bind="foreach: project.employees" >
                 <li><a href="#" data-bind="jeditable: first_name">Adam Kinkaid</a></li>
             </ul>
         </div>
         <div data-role="collapsible">
             <h2>Contacts</h2>
-            <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d" data-bind="foreach: project.contacts" >
-                <li  data-bind=" ">
-                    <a>
-                        <h3 href="mailto:" data-bind="attr:{href: 'mailto:'+ email},text: first_name"></h3>
+            <ul data-role="listview" data-filter="true" data-divider-theme="d" data-bind="foreach: project.contacts" >
+                <li>
+                    <a  data-bind="attr:{href: 'mailto:'+ email()}">
+                        <h3 data-bind="text: last_name() + ' ' + first_name()"></h3>
                         <p  data-bind="text: email"></p>
                     </a>
                 </li>

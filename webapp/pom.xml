@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>common.service</groupId>
-    <artifactId>root</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <groupId>web</groupId>
-  <artifactId>webapp</artifactId>
-  <packaging>war</packaging>
-  <name>webapp Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>common.service</groupId>
+		<artifactId>root</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>web</groupId>
+	<artifactId>webapp</artifactId>
+	<packaging>war</packaging>
+	<name>webapp Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
-  	<dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -21,6 +22,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -42,54 +44,71 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-webmvc</artifactId> 
+			<version>${org.springframework.version}</version> </dependency> -->
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>common.service</groupId>
 			<artifactId>service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-  	</dependencies>
-  <build>
-    <finalName>webapp</finalName>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.0.2</version>
-			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
-			</configuration>
-		</plugin>
-		<plugin> <!-- if this is how you wish to deploy it... -->
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>tomcat-maven-plugin</artifactId>
-			<configuration>
-				<url>http://localhost:8585/manager</url>
-				<server>mytomcat</server>
-				<path>/webapp</path>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-eclipse-plugin</artifactId>
-			<configuration>
-				<wtpapplicationxml>true</wtpapplicationxml>
-				<wtpversion>2.0</wtpversion>
-				<downloadSources>true</downloadSources>
-				<downloadJavadocs>true</downloadJavadocs>
-				<classpathContainers>
-					<classpathContainer>org.eclipse.jst.j2ee.internal.web.container</classpathContainer>
-					<classpathContainer>org.eclipse.jst.j2ee.internal.module.container</classpathContainer>
-				</classpathContainers>
-				<additionalProjectFacets>
-					<jst.web>3.0</jst.web>
-					<jst.jsf>1.2</jst.jsf>
-				</additionalProjectFacets>
-				<additionalProjectnatures>
-					<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-				</additionalProjectnatures>
-			</configuration>
-		</plugin>
-	</plugins>
-  </build>
+		<!-- <dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency> -->
+
+	</dependencies>
+	<build>
+		<finalName>webapp</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin> <!-- if this is how you wish to deploy it... -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<url>http://localhost:8585/manager</url>
+					<server>mytomcat</server>
+					<path>/webapp</path>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jst.j2ee.internal.web.container</classpathContainer>
+						<classpathContainer>org.eclipse.jst.j2ee.internal.module.container</classpathContainer>
+					</classpathContainers>
+					<additionalProjectFacets>
+						<jst.web>3.0</jst.web>
+						<jst.jsf>1.2</jst.jsf>
+					</additionalProjectFacets>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

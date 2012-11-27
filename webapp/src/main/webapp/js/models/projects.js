@@ -1,10 +1,12 @@
 define([
     "models/employee",
+    "models/contact",
+    "collections/contacts",
     'underscore',
     'backbone',
     'backboneRelational'
 
-], function(EmployeeModel) {
+], function(EmployeeModel, ContactModel, ContactCollection) {
     var ProjectsModel = Backbone.RelationalModel.extend({
         relations: [
 
@@ -14,6 +16,15 @@ define([
                 relatedModel: EmployeeModel,
                 reverseRelation: {
                     key: 'worksOnProject'
+                }
+            },
+            {
+                type: Backbone.HasMany, // Use the type, or the string 'HasOne' or 'HasMany'.
+                key: 'contacts',
+                relatedModel: ContactModel,
+                collectionType : ContactCollection,
+                reverseRelation: {
+                    key: 'contactForProject'
                 }
             }
 
