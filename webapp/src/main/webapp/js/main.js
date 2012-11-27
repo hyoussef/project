@@ -44,7 +44,7 @@ require([
             }
             console.log("router is initialized");
             //from now on the router will handle navigation
-            $('#document').unbind('pagebeforechange');
+            $(document).off('pagebeforechange', e.handleObj.handler);
 
         }
 

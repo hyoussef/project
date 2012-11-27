@@ -8,17 +8,13 @@ define([
         this.isInitialized = false;
         return this;
 
-    }
+    };
     Router.prototype.initialize = function () {
         this.app_router = new $.mobile.Router([
 
-            {"#companies(?:[?/](.*))?":{ handler:function (type, params, ui, page, event) {console.log(type); }, events:"bs" }},
             {
                 "#companies(?:[?/](.*))?":{ handler:'showCompanies', events:"bC" }
             },
-            {"#companies(?:[?/](.*))?":{ handler:function(type, params, ui, page, event){
-                console.log(type);
-            }, events:"i" }},
 
             {
                 "#entities(?:[?/](.*))?":{ handler:'showEntities', events:"bC" }
@@ -40,13 +36,13 @@ define([
     Router.prototype.showCompanies = function (type, params, ui, page, event) {
         if(event !==undefined && event !== null){
             event.preventDefault();
-            event.stopPropagation();
         }
         if (ui !== undefined && ui !== null && typeof ui.toPage !== "string" ) {
             return;
         }
         $.mobile.loading( 'show');
         var $page = $("#companies");
+      
         require(['views/companies/list', 'views/panel', 'collections/companies'],
             function (CompaniesListView, PanelView,CompaniesCollection) {
                 try{
@@ -62,7 +58,9 @@ define([
                             panelView.$el.appendTo($content);
                             $page.page();
                             $page.trigger('create');
-                            $.mobile.changePage($page, {dataUrl: "#companies"});
+                            var u = $.mobile.path.parseUrl(ui.toPage);
+                            ui.options.dataUrl = u.hash;
+                            $.mobile.changePage($page, {dataUrl : u.hash});
                             $.mobile.loading( 'hide');
                         },
                         error: function(collection ,response){
@@ -76,8 +74,8 @@ define([
                     $.mobile.changePage($page, {dataUrl: "#companies"});
                     $.mobile.loading( 'hide');
                 }
-            })
-    }
+            });
+    };
 
     Router.prototype.showEntities = function (type, params, ui, page, event,entitiesCollection) {
         if(event !==undefined && event !== null){
@@ -97,7 +95,7 @@ define([
                 var bkEntitiesCollection;
                 if(entitiesCollection !== undefined && entitiesCollection !== null ){
                     bkEntitiesCollection = entitiesCollection;
-                    options = {dataUrl: "#entities?cmp="+ bkEntitiesCollection.fromCompany.get('id') }
+                    options = {dataUrl: "#entities?cmp="+ bkEntitiesCollection.fromCompany.get('id') };
                 } else
                 {
                     var u = $.mobile.path.parseUrl(ui.toPage);
@@ -126,8 +124,7 @@ define([
                 });
             }
         );
-
-    }
+     };
     Router.prototype.showProjects = function (type, params, ui, page, event,projectsCollection) {
         if(event !==undefined && event !== null){
             event.preventDefault();
@@ -146,7 +143,7 @@ define([
                 var options;
                 if(projectsCollection !== undefined && projectsCollection !== null ){
                     bkprojectsCollection = projectsCollection;
-                    options = {dataUrl: "#projects?ent="+ bkprojectsCollection.fromEntity.get('id') +"&cmp="+bkprojectsCollection.fromEntity.get('fromCompany').get('id') }
+                    options = {dataUrl: "#projects?ent="+ bkprojectsCollection.fromEntity.get('id') +"&cmp="+bkprojectsCollection.fromEntity.get('fromCompany').get('id') };
                 } else
                 {
                     var u = $.mobile.path.parseUrl(ui.toPage);
@@ -177,7 +174,7 @@ define([
                 });
             }
         );
-    }
+    };
     Router.prototype.showProject = function (type, params, ui, page, event,projectModel) {
         if(event !==undefined && event !== null){
             event.preventDefault();
@@ -226,7 +223,7 @@ define([
                 });
             }
         );
-    }
+    };
 
 
 

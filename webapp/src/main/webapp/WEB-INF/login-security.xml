@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                            http://www.springframework.org/schema/security
+                            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<beans:import resource="login-service.xml" />
+	<http use-expressions="true" access-denied-page="/denied.jsp"  >
+		<form-login login-page="/login.jsp"
+			always-use-default-target="false" default-target-url="/index.jsp"
+			authentication-failure-url="/login.jsp?error=true" />
+
+		<intercept-url pattern="/css/**" access="permitAll" />
+		<intercept-url pattern="/js/**" access="permitAll" />
+		<intercept-url pattern="/login.jsp" access="permitAll" />
+		<intercept-url pattern="/**"
+			access="isAuthenticated() and hasRole('ROLE_USER')" />
+		<intercept-url pattern="/services/**"
+			access="isAuthenticated() and hasRole('ROLE_USER')" />
+		<logout/>
+		<remember-me />
+	</http>
+
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="sha-256" base64="true" />
+			<jdbc-user-service data-source-ref="loginDataSource"
+				authorities-by-username-query="select u.username as username , r.authority as authority from user as u , role as r, user_role as ur where u.id=ur.user_id AND ur.role_id = r.id and u.username= ?"
+				users-by-username-query="select username , password , enabled from user where username= ? " />
+
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
