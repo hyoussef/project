@@ -43,19 +43,23 @@ define([
         $.mobile.loading( 'show');
         var $page = $("#companies");
       
-        require(['views/companies/list', 'views/panel', 'collections/companies'],
-            function (CompaniesListView, PanelView,CompaniesCollection) {
+        require(['views/companies/list', 'views/header/headerView', 'collections/companies', 'models/header'],
+            function (CompaniesListView, HeaderView,CompaniesCollection, HeaderModel) {
                 try{
                     // Call render on the module we loaded in via the dependency array'views/projects/list'
                     var $content = $page.children(":jqmData(role=content)");
                     $content.empty();
+                    var $header =  $page.children(":jqmData(role=header)");
+                    $header.empty();
+                    var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Companies"})});
+                    $header.html(myHeader.$el);
                     var companiesCollection = new CompaniesCollection();
                     companiesCollection.fetch({
                         success : function(bbCollection ,response){
                             var projectListView = new CompaniesListView({ id:'companies_list', collection : companiesCollection});
-                            var panelView = new PanelView({ id:'popupPanel'});
+                            //var panelView = new PanelView({ id:'popupPanel'});
                             $content.html( projectListView.$el);
-                            panelView.$el.appendTo($content);
+                            //panelView.$el.appendTo($content);
                             $page.page();
                             $page.trigger('create');
                             var u = $.mobile.path.parseUrl(ui.toPage);
@@ -89,9 +93,15 @@ define([
         $.mobile.loading( 'show');
         var $page = $("#entities");
         console.log(type);
-        require(['views/entities/list','collections/entities'], function(EntitiesView, EntitiesCollection){
+        require(['views/entities/list','views/header/headerView', 'collections/entities',  'models/header'], function(EntitiesView, HeaderView, EntitiesCollection , HeaderModel){
                 var $page = $("#entities");
                 var $content = $page.children(":jqmData(role=content)");
+
+                var $header =  $page.children(":jqmData(role=header)");
+                $header.empty();
+                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Entities"})});
+                $header.html(myHeader.$el);
+
                 var bkEntitiesCollection;
                 if(entitiesCollection !== undefined && entitiesCollection !== null ){
                     bkEntitiesCollection = entitiesCollection;
@@ -136,9 +146,15 @@ define([
         $.mobile.loading( 'show');
         var $page = $("#projects");
         console.log(type);
-        require(['views/projects/list','collections/projects'], function(ProjectListView , ProjectsCollection){
-                var $page = $("#projects");
+        require(['views/projects/list','views/header/headerView', 'collections/projects', 'models/header'], function(ProjectListView ,HeaderView, ProjectsCollection, HeaderModel){
+
                 var $content = $page.children(":jqmData(role=content)");
+
+                var $header =  $page.children(":jqmData(role=header)");
+                $header.empty();
+                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Projects"})});
+                $header.html(myHeader.$el);
+
                 var bkprojectsCollection;
                 var options;
                 if(projectsCollection !== undefined && projectsCollection !== null ){
@@ -149,7 +165,7 @@ define([
                     var u = $.mobile.path.parseUrl(ui.toPage);
                     var queryParamsObj = global.Router.app_router.getParams(params[1]);
                     if(!queryParamsObj){
-                        $.error("invalid query params!");;
+                        $.error("invalid query params!");
                     }
                     bkprojectsCollection = new ProjectsCollection(null , {cmpId :queryParamsObj.cmp , entId :queryParamsObj.ent  });
 //                    options = {dataUrl: "#projects?cmp="+ queryParamsObj.cmp +"&ent="+queryParamsObj.ent };
@@ -186,8 +202,14 @@ define([
         $.mobile.loading( 'show');
         $.mobile.loading( 'show');
         var $page = $("#MyProject");
-        require(['views/projects/projectView', 'models/projects'], function(ProjectView, ProjectsModel){
+        require(['views/projects/projectView','views/header/headerView', 'models/projects' , 'models/header'], function(ProjectView,HeaderView, ProjectsModel, HeaderModel){
                 var $content = $page.children(":jqmData(role=content)");
+
+                var $header =  $page.children(":jqmData(role=header)");
+                $header.empty();
+                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Project"})});
+                $header.html(myHeader.$el);
+
                 var bkprojectsModel;
                 var options;
                 if(projectModel !== undefined && projectModel !== null ){

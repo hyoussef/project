@@ -28,6 +28,7 @@ define([
             self.$el = $(projectListTemplate);
             self.$el.attr('id', self.id);
             ko.applyBindings(self.view_model, self.$el[0]);
+            self.$el.trigger('create');
 
             /* $content = self.$el.children(":jqmData(role=content)");
              var $projectListTemplate = $(projectListTemplate);

@@ -1,33 +1,35 @@
 // Filename: views/projects/list
 define([
-    'collections/entities',
-    'text!templates/entities/entity.html',
+    'models/header',
+    'text!templates/header/header.html',
     'knockout',
     'jquery',
     'underscore',
     'backbone',
     'knockback',
-    'jquerymobile',
-    'viewModel/entitiesVwModel'
-], function (CompaniesCollection,entitiesListTemplate, ko) {
+    'viewModel/headerVwModel'
 
-    var companiesListView = Backbone.View.extend({
+], function (HeaderModel,headerTemplate, ko) {
+
+    var HeaderView = Backbone.View.extend({
+        //el:$("#projects"),
+
         initialize:function () {
             var self = this;
             self.el = "#" + self.id;
-            self.view_model = new EntitiesVwModel(this.collection );
+            self.view_model = new HeaderVwModel(self.model);
             self.render();
-
         },
 
 
         render:function () {
             var self = this;
-            self.$el = $(entitiesListTemplate);
+            self.$el = $(headerTemplate);
             self.$el.attr('id', self.id);
             ko.applyBindings(self.view_model, self.$el[0]);
-            self.$el.trigger('create');
         }
+
     });
-    return companiesListView;
+    return HeaderView;
 });
+

@@ -12,7 +12,8 @@ define([
     render: function(){
       var data = {};
       var compiledTemplate = _.template( userListTemplate, data );
-      this.$el.html( compiledTemplate ); 
+      this.$el.html( compiledTemplate );
+      self.$el.trigger('create');
       
     }
   });

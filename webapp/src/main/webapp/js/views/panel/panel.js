@@ -46,12 +46,11 @@ define([
                     self.$el.css( "height", h );
                 }
             });
-            //self.$el.appendTo().trigger('create');
-//            $content = self.$el.children(":jqmData(role=content)");
-//            $popup = $content.children(":jqmData(role=popup)");
-//              self.$el.html(panelTemplate).trigger( "create" );
-//            ko.applyBindings(self.view_model, self.$el[0]);
-//            self.$el.children(":jqmData(role=content)").find(":jqmData(role=listview)").listview('refresh');
+            self.$el.popup({ history: false }).trigger('create');
+        },
+        open : function(){
+            var self = this;
+            self.$el.popup('open', { history: false, positionTo:'window' });
         }
     });
     return popupView;

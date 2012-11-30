@@ -16,6 +16,7 @@
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jquery.mobile-1.2.0.css"/>
+    <link rel="stylesheet" href="css/jqm-icon-pack-2.0-original.css"/>
     <link rel="stylesheet" href="css/projects.css"/>
     <script data-main="js/main" src="js/libs/require/require.js"></script>
 </head>
@@ -41,10 +42,7 @@
 
 <div id="companies" data-role="page" data-theme="a"   class="type-interior">
     <div  data-role="header" data-position="fixed">
-        <h1>Companies</h1>
-        <a href="#company_entity_project" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
-        <a href="#popupPanel" data-icon="grid" data-iconpos="notext" data-rel="popup" data-transition="slide"
-           data-position-to="window">actions</a>
+
     </div>
     <!-- /header -->
 
@@ -67,7 +65,6 @@
 <div data-role="page" id="entities" data-theme="a"   data-add-back-btn="true">
 
     <div  data-role="header" data-position="fixed">
-        <h1>Entities</h1>
     </div><!-- /header -->
 
     <div data-role="content" >
@@ -76,7 +73,6 @@
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed">
-        <h4>Page Footer</h4>
     </div><!-- /footer -->
 </div><!-- /page two -->
 
@@ -84,7 +80,7 @@
 <div data-role="page" id="projects" data-theme="a"   data-add-back-btn="true">
 
     <div data-role="header" data-position="fixed">
-        <h1>Projects</h1>
+
     </div><!-- /header -->
 
     <div data-role="content" >
@@ -101,7 +97,7 @@
 <div data-role="page" id="MyProject" data-theme="a"   data-add-back-btn="true">
 
     <div  data-role="header" data-position="fixed">
-        <h1>project</h1>
+
     </div><!-- /header -->
 
     <div data-role="content">
