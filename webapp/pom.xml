@@ -142,7 +142,7 @@
 									<overWrite>true</overWrite>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>${project.basedir}/src/main/webapp</outputDirectory>
+							<outputDirectory>${project.basedir}/target/webapp</outputDirectory>
 							<overWriteReleases>true</overWriteReleases>
 						</configuration>
 					</execution>

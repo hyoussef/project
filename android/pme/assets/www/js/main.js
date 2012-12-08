@@ -30,7 +30,7 @@ require([
     $(document).on("mobileinit", function () {
         $.mobile.page.prototype.options.addBackBtn = true;
         $.support.cors = true;
-        $.mobile.allowCrossDomainPages = true;
+        $.mobile.allowCrossDomainPages = conf.allowCrossDomainPages;
         //$.mobile.phonegapNavigationEnabled = true;
         //$.mobile.ajaxEnabled = true;
         $.mobile.buttonMarkup.hoverDelay = 50;

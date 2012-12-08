@@ -1,35 +1,57 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-<!doctype html>
-<!--[if lt IE 7]>
-<html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>
-<html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>
-<html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en"> <!--<![endif]-->
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+
 
     <title>PME</title>
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jquery.mobile-1.2.0.css"/>
     <link rel="stylesheet" href="css/jqm-icon-pack-2.0-original.css"/>
     <link rel="stylesheet" href="css/projects.css"/>
-    <script>
-        var conf =
-        {
-            allowCrossDomainPages : false,
-            root:''
-        };
-    </script>
-    <script data-main="js/main" src="js/libs/require/require.js"></script>
 </head>
+
 <body>
+<div data-role="page" id="splash" class="app">
+    <div data-role="content">
+        <h1>Apache Cordova</h1>
+        <div id="deviceready" class="blink">
+            <p class="event listening">Connecting to Device</p>
+            <p class="event received">Device is Ready</p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/libs/cordova-2.2.0.js"></script>
+    <script data-main="js/main" src="js/libs/require/require.js"></script>
+
+    <!-- <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+
+    </script>-->
+</div>
 
 <div id="login" data-role="page">
     <div data-role="header">
@@ -37,13 +59,13 @@
     </div>
     <div data-role="content">
 
-        <c:if test="${not empty param.error}">
+        <!--<c:if test="${not empty param.error}">
             <font color="red"> Login error. <br /> Reason :
-                    ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
             </font>
-        </c:if>
+        </c:if>-->
         <form method="POST"  data-ajax="false"
-              action="j_spring_security_check">
+              action="http://89.2.87.236:8585/webapp/j_spring_security_check">
             <div data-role="fieldcontain">
                 <label for="username" >Username:</label>
                 <input id="username" name="j_username" type="text" />
@@ -63,16 +85,15 @@
 
 <div id="container" data-role="page" data-theme="a"   class="type-interior">
     <div  data-role="header" data-position="fixed">
-        <h1>PM</h1>
+        <h1>Modular Backbone</h1>
     </div>
     <!-- /header -->
-    <div data-role="content" data-theme="a">
+    <div data-role="content">
 
         <div id="menu">
             <a href="#companies" data-role="button" data-icon="arrow-r" data-iconpos="right">Companies</a>
             <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">My Account</a>
         </div>
-
     </div>
 
     <div id="footer" data-role="footer" data-position="fixed">
@@ -85,7 +106,10 @@
 
     </div>
     <!-- /header -->
+
     <div data-role="content">
+
+
         <!--<div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">-->
 
         <!--</div>-->
@@ -100,20 +124,31 @@
 
 <!-- Start of second page: #two -->
 <div data-role="page" id="entities" data-theme="a"   data-add-back-btn="true">
+
     <div  data-role="header" data-position="fixed">
     </div><!-- /header -->
+
     <div data-role="content" >
+
+
     </div><!-- /content -->
+
     <div data-role="footer" data-position="fixed">
     </div><!-- /footer -->
 </div><!-- /page two -->
 
 <!-- Start of second page: #two -->
 <div data-role="page" id="projects" data-theme="a"   data-add-back-btn="true">
+
     <div data-role="header" data-position="fixed">
+
     </div><!-- /header -->
+
     <div data-role="content" >
+
+
     </div><!-- /content -->
+
     <div data-role="footer" data-position="fixed">
         <h4>Page Footer</h4>
     </div><!-- /footer -->
@@ -121,10 +156,15 @@
 
 <!-- Start of second page: #two -->
 <div data-role="page" id="MyProject" data-theme="a"   data-add-back-btn="true">
+
     <div  data-role="header" data-position="fixed">
+
     </div><!-- /header -->
 
     <div data-role="content">
+
+
+
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed">
@@ -132,6 +172,7 @@
     </div><!-- /footer -->
 </div><!-- /page two -->
 
+
+
 </body>
 </html>
-

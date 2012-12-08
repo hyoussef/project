@@ -7,7 +7,14 @@ define([
         url: function( models ) {
             // Logic to create a url for the whole collection, or a set of models.
             // See the tests, or Backbone-tastypie, for an example.
-            return 'http://89.2.87.236:8585/webapp/services/internal/manager/companies/';
+            var url = ''
+            if(conf.allowCrossDomainPages){
+                url = conf.root + '/services/internal/manager/companies/';
+            }else{
+                url = 'services/internal/manager/companies/'
+            }
+
+            return url;
         },
         model: CompanyModel,
         initialize: function(){
