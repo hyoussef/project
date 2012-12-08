@@ -1,0 +1,42 @@
+<div>
+    <!-- project title-->
+    <h2  data-bind="jeditable: project.name, jeditableOptions: {type: 'textarea',submit: 'OK'}"></h2>
+    <!-- project description-->
+    <p data-bind="jeditable: project.desc" ></p>
+
+    <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+        <div data-role="collapsible">
+            <h2>Employee</h2>
+            <ul data-role="listview" data-filter="true" data-divider-theme="d" data-bind="foreach: project.employees" >
+                <li><a href="#" data-bind="jeditable: first_name">Adam Kinkaid</a></li>
+            </ul>
+        </div>
+        <div data-role="collapsible">
+            <h2>Contacts</h2>
+            <ul data-role="listview" data-filter="true" data-divider-theme="d" data-bind="foreach: project.contacts" >
+                <li href="#" data-bind="click: $root.openContact">
+                    <a>
+                        <h3 data-bind="text: last_name() + ' ' + first_name()"></h3>
+                        <p  data-bind="text: email"></p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div data-role="collapsible">
+            <h2>Events</h2>
+            <ul data-role="listview" data-theme="d" data-divider-theme="d" data-bind="foreach: project.employees">
+                <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
+                <li><a href="index.html">
+
+                    <h3>Stephen Weber</h3>
+                    <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+                    <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+                    <p class="ui-li-aside"><strong>6:24</strong>PM</p>
+
+                </a></li>
+
+            </ul>
+        </div>
+    </div>
+
+</div><!-- /content -->

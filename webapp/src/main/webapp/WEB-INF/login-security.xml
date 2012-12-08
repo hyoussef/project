@@ -8,16 +8,17 @@
 
 	<beans:import resource="login-service.xml" />
 	<http use-expressions="true" access-denied-page="/denied.jsp"  >
-		<form-login login-page="/login.jsp"
-			always-use-default-target="false" default-target-url="/index.jsp"
-			authentication-failure-url="/login.jsp?error=true" />
+		<form-login login-page="/#login"
+			always-use-default-target="false" default-target-url="/#container"
+			authentication-failure-url="/#login?error=true" />
 
 		<intercept-url pattern="/css/**" access="permitAll" />
 		<intercept-url pattern="/js/**" access="permitAll" />
-		<intercept-url pattern="/login.jsp" access="permitAll" />
+		<intercept-url pattern="/#login" access="permitAll" />
+		<intercept-url pattern="/*" access="permitAll" />
 		<intercept-url pattern="/**"
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
-		<intercept-url pattern="/services/**"
+		<intercept-url pattern="/services/**" 
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
 		<logout/>
 		<remember-me />

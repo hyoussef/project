@@ -1,16 +1,23 @@
 //Filename: router.js
-define([
+define([ 
     'jquery',
     'jqmr',
     'jquerymobile'
-], function ($) {
+], function ( $) {
     Router = function(){
         this.isInitialized = false;
+        //$(pagesTemplate).appendTo("body");
         return this;
 
     };
     Router.prototype.initialize = function () {
         this.app_router = new $.mobile.Router([
+
+            {
+                "#container(?:[?/](.*))?":{ handler:'showContainer', events:"bC" }
+            },  {
+                "#login(?:[?/](.*))?":{ handler:'showLogin', events:"bC" }
+            },
 
             {
                 "#companies(?:[?/](.*))?":{ handler:'showCompanies', events:"bC" }
@@ -32,6 +39,15 @@ define([
         return this;
     };
 
+    Router.prototype.showContainer = function(type, params, ui, page, event){
+        var $page = $("#container");
+        $.mobile.changePage($page, {dataUrl: "#container"});
+
+    };Router.prototype.showLogin = function(type, params, ui, page, event){
+        var $page = $("#login");
+        $.mobile.changePage($page, {dataUrl: "#login"});
+
+    };
 
     Router.prototype.showCompanies = function (type, params, ui, page, event) {
         if(event !==undefined && event !== null){
@@ -42,7 +58,7 @@ define([
         }
         $.mobile.loading( 'show');
         var $page = $("#companies");
-      
+
         require(['views/companies/list', 'views/header/headerView', 'collections/companies', 'models/header'],
             function (CompaniesListView, HeaderView,CompaniesCollection, HeaderModel) {
                 try{
@@ -67,7 +83,7 @@ define([
                             $.mobile.changePage($page, {dataUrl : u.hash});
                             $.mobile.loading( 'hide');
                         },
-                        error: function(collection ,response){
+                        error: function(collection ,xhr, options){
                             alert("error fetching companies and projects");
                             $.mobile.loading( 'hide');
                         }
@@ -134,7 +150,7 @@ define([
                 });
             }
         );
-     };
+    };
     Router.prototype.showProjects = function (type, params, ui, page, event,projectsCollection) {
         if(event !==undefined && event !== null){
             event.preventDefault();
@@ -168,7 +184,7 @@ define([
                         $.error("invalid query params!");
                     }
                     bkprojectsCollection = new ProjectsCollection(null , {cmpId :queryParamsObj.cmp , entId :queryParamsObj.ent  });
-//                    options = {dataUrl: "#projects?cmp="+ queryParamsObj.cmp +"&ent="+queryParamsObj.ent };
+//				options = {dataUrl: "#projects?cmp="+ queryParamsObj.cmp +"&ent="+queryParamsObj.ent };
                     options = {dataUrl:u.hash};
                 }
 

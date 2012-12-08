@@ -1,0 +1,11 @@
+<div data-role="popup">
+    <a>
+        <h3 data-bind="text: last_name() + ' ' + first_name()"></h3>
+
+        <div data-role="controlgroup" data-type="horizontal" >
+            <a data-bind="attr:{href: 'mailto:'+ email()}, text: email" data-role="button" data-icon="email" data-iconpos="notext"></a>
+            <a data-bind="attr:{href: 'tel:'+ mobile()}, text: mobile" data-role="button" data-icon="phone" ></a>
+            <a href="#" data-role="button" data-icon="mobile" data-iconpos="notext">Delete</a>
+        </div>
+    </a>
+</div>
