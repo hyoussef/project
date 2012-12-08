@@ -1,33 +1,3 @@
-<div id="login" data-role="page">
-    <div data-role="header">
-        <h1>Project Management</h1>
-    </div>
-    <div data-role="content">
-
-        <!--<c:if test="${not empty param.error}">
-            <font color="red"> Login error. <br /> Reason :
-                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-            </font>
-        </c:if>-->
-        <form method="POST"  data-ajax="false"
-              action="http://89.2.87.236:8585/webapp/j_spring_security_check">
-            <div data-role="fieldcontain">
-                <label for="username" >Username:</label>
-                <input id="username" name="j_username" type="text" />
-            </div>
-            <div data-role="fieldcontain">
-                <label for="password" >Password: </label>
-                <input id="password" name="j_password" type="password" />
-            </div>
-            <div id="submitDiv" data-role="fieldcontain">
-                <label for="loginbtnSubmit" ></label>
-                <input id="loginbtnSubmit"
-                       type="submit" value="login" data-ajax="false" data-inline="true" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div id="container" data-role="page" data-theme="a"   class="type-interior">
     <div  data-role="header" data-position="fixed">
         <h1>Modular Backbone</h1>

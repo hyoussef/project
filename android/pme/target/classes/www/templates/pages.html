@@ -1,0 +1,118 @@
+<div id="login" data-role="page">
+    <div data-role="header">
+        <h1>Project Management</h1>
+    </div>
+    <div data-role="content">
+
+        <!--<c:if test="${not empty param.error}">
+            <font color="red"> Login error. <br /> Reason :
+                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+            </font>
+        </c:if>-->
+        <form method="POST"  data-ajax="false"
+              action="http://89.2.87.236:8585/webapp/j_spring_security_check">
+            <div data-role="fieldcontain">
+                <label for="username" >Username:</label>
+                <input id="username" name="j_username" type="text" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="password" >Password: </label>
+                <input id="password" name="j_password" type="password" />
+            </div>
+            <div id="submitDiv" data-role="fieldcontain">
+                <label for="loginbtnSubmit" ></label>
+                <input id="loginbtnSubmit"
+                       type="submit" value="login" data-ajax="false" data-inline="true" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="container" data-role="page" data-theme="a"   class="type-interior">
+    <div  data-role="header" data-position="fixed">
+        <h1>Modular Backbone</h1>
+    </div>
+    <!-- /header -->
+    <div data-role="content">
+
+        <div id="menu">
+            <a href="#companies" data-role="button" data-icon="arrow-r" data-iconpos="right">Companies</a>
+            <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">My Account</a>
+        </div>
+    </div>
+
+    <div id="footer" data-role="footer" data-position="fixed">
+    </div>
+</div>
+
+
+<div id="companies" data-role="page" data-theme="a"   class="type-interior">
+    <div  data-role="header" data-position="fixed">
+
+    </div>
+    <!-- /header -->
+
+    <div data-role="content">
+
+
+        <!--<div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">-->
+
+        <!--</div>-->
+    </div>
+    <!-- /content -->
+    <div data-role="footer"  data-position="fixed">
+        <p class="jqm-version"></p>
+
+        <p>&copy; 2012</p>
+    </div>
+</div>
+
+<!-- Start of second page: #two -->
+<div data-role="page" id="entities" data-theme="a"   data-add-back-btn="true">
+
+    <div  data-role="header" data-position="fixed">
+    </div><!-- /header -->
+
+    <div data-role="content" >
+
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+    </div><!-- /footer -->
+</div><!-- /page two -->
+
+<!-- Start of second page: #two -->
+<div data-role="page" id="projects" data-theme="a"   data-add-back-btn="true">
+
+    <div data-role="header" data-position="fixed">
+
+    </div><!-- /header -->
+
+    <div data-role="content" >
+
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>Page Footer</h4>
+    </div><!-- /footer -->
+</div><!-- /page two -->
+
+<!-- Start of second page: #two -->
+<div data-role="page" id="MyProject" data-theme="a"   data-add-back-btn="true">
+
+    <div  data-role="header" data-position="fixed">
+
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <h4>Page Footer</h4>
+    </div><!-- /footer -->
+</div><!-- /page two -->

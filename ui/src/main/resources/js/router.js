@@ -6,7 +6,8 @@ define([ 'text!templates/pages.html',
 ], function (pagesTemplate , $) {
     Router = function(){
         this.isInitialized = false;
-        $(pagesTemplate).appendTo("body").trigger('create');
+        var $templale =  $(pagesTemplate).trigger('create');
+        $templale.appendTo("body");
         return this;
 
     };

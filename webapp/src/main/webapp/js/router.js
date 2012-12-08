@@ -1,12 +1,13 @@
 //Filename: router.js
-define([ 
+define([ 'text!templates/pages.html',
     'jquery',
     'jqmr',
     'jquerymobile'
-], function ( $) {
+], function (pagesTemplate , $) {
     Router = function(){
         this.isInitialized = false;
-        //$(pagesTemplate).appendTo("body");
+        var $templale =  $(pagesTemplate).trigger('create');
+        $templale.appendTo("body");
         return this;
 
     };
@@ -41,10 +42,12 @@ define([
 
     Router.prototype.showContainer = function(type, params, ui, page, event){
         var $page = $("#container");
+        $page.page('create');
         $.mobile.changePage($page, {dataUrl: "#container"});
 
     };Router.prototype.showLogin = function(type, params, ui, page, event){
         var $page = $("#login");
+        $page.page('create');
         $.mobile.changePage($page, {dataUrl: "#login"});
 
     };
