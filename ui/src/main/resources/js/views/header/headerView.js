@@ -27,6 +27,8 @@ define([
             self.$el = $(headerTemplate);
             self.$el.attr('id', self.id);
             ko.applyBindings(self.view_model, self.$el[0]);
+            self.$el.trigger('create');
+
         }
 
     });

@@ -61,34 +61,28 @@
     </div>
 </div>
 
-<div id="container" data-role="page" data-theme="a"   class="type-interior">
+<div id="container" data-role="page" data-theme="a">
     <div  data-role="header" data-position="fixed">
         <h1>PM</h1>
     </div>
     <!-- /header -->
     <div data-role="content" data-theme="a">
 
-        <div id="menu">
-            <a href="#companies" data-role="button" data-icon="arrow-r" data-iconpos="right">Companies</a>
-            <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">My Account</a>
-        </div>
-
+        <a href="#companies" data-role="button" data-icon="arrow-r" data-iconpos="right">Companies</a>
+        <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">My Account</a>
     </div>
 
-    <div id="footer" data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed">
     </div>
 </div>
 
 
 <div id="companies" data-role="page" data-theme="a"   class="type-interior">
     <div  data-role="header" data-position="fixed">
-
+    	<div></div>
     </div>
     <!-- /header -->
     <div data-role="content">
-        <!--<div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">-->
-
-        <!--</div>-->
     </div>
     <!-- /content -->
     <div data-role="footer"  data-position="fixed">

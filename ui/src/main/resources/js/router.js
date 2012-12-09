@@ -1,5 +1,5 @@
 //Filename: router.js
-define([ 
+define([
     'jquery',
     'jqmr',
     'jquerymobile'
@@ -13,7 +13,8 @@ define([
 
             {
                 "#container(?:[?/](.*))?":{ handler:'showContainer', events:"bC" }
-            },  {
+            },
+            {
                 "#login(?:[?/](.*))?":{ handler:'showLogin', events:"bC" }
             },
 
@@ -24,7 +25,6 @@ define([
             {
                 "#entities(?:[?/](.*))?":{ handler:'showEntities', events:"bC" }
             },
-
             {
                 "#projects(?:[?/](.*))?":{ handler:'showProjects', events:"bC" }
             },
@@ -38,12 +38,34 @@ define([
     };
 
     Router.prototype.showContainer = function(type, params, ui, page, event){
-        var $page = $("#container").trigger('create');
-        $page.page();
-        $.mobile.changePage($page, {dataUrl: "#container"});
-
+        if(event !==undefined && event !== null){
+            event.preventDefault();
+        }
+        if (ui !== undefined && ui !== null && typeof ui.toPage !== "string" ) {
+            return;
+        }
+        $.mobile.loading( 'show');
+        require(['views/home/main'],
+            function (MainHomeView) {
+                var myMainView = new MainHomeView().render();
+                var $page = $("#container");
+                var $content = $page.children(":jqmData(role=content)");
+                $content.empty().html(myMainView.$el);
+                $page.page();
+                $page.trigger('create');
+                $.mobile.changePage($page, {dataUrl: "#container"});
+                $.mobile.loading( 'hide');
+            });
     };
     Router.prototype.showLogin = function(type, params, ui, page, event){
+        if(event !==undefined && event !== null){
+            event.preventDefault();
+        }
+        if (ui !== undefined && ui !== null && typeof ui.toPage !== "string" ) {
+            return;
+        }
+        $.mobile.loading( 'show');
+
         var $page = $("#login").trigger('create');
         $page.page();
         $.mobile.changePage($page, {dataUrl: "#login"});
@@ -69,7 +91,8 @@ define([
                     var $header =  $page.children(":jqmData(role=header)");
                     $header.empty();
                     var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Companies"})});
-                    $header.html(myHeader.$el);
+                    $header.replaceWith(myHeader.$el);
+                    $header.trigger('create');
                     var companiesCollection = new CompaniesCollection();
                     companiesCollection.fetch({
                         success : function(bbCollection ,response){
@@ -111,13 +134,10 @@ define([
         var $page = $("#entities");
         console.log(type);
         require(['views/entities/list','views/header/headerView', 'collections/entities',  'models/header'], function(EntitiesView, HeaderView, EntitiesCollection , HeaderModel){
-                var $page = $("#entities");
                 var $content = $page.children(":jqmData(role=content)");
-
                 var $header =  $page.children(":jqmData(role=header)");
-                $header.empty();
                 var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Entities"})});
-                $header.html(myHeader.$el);
+                $header.html(myHeader.$el).trigger('create');
 
                 var bkEntitiesCollection;
                 if(entitiesCollection !== undefined && entitiesCollection !== null ){
@@ -139,7 +159,7 @@ define([
                         $content.html(entitiesView.$el);
                         $page.page();
                         $page.trigger('create');
-                        options.reloadPage = false;
+                        options.reloadPage = true;
                         options.allowSamePageTransition = false;
                         $.mobile.changePage($page , options);
                         $.mobile.loading( 'hide');
@@ -170,7 +190,8 @@ define([
                 var $header =  $page.children(":jqmData(role=header)");
                 $header.empty();
                 var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Projects"})});
-                $header.html(myHeader.$el);
+                $header.replaceWith(myHeader.$el);
+                $header.trigger('create');
 
                 var bkprojectsCollection;
                 var options;
@@ -195,7 +216,7 @@ define([
                         $page.page();
                         $content.html(projectsView.$el);
                         $page.trigger('create');
-                        options.reloadPage = false;
+                        options.reloadPage = true;
                         options.allowSamePageTransition = false;
                         $.mobile.changePage($page, options);
                         $.mobile.loading( 'hide');
@@ -225,8 +246,8 @@ define([
                 var $header =  $page.children(":jqmData(role=header)");
                 $header.empty();
                 var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Project"})});
-                $header.html(myHeader.$el);
-
+                $header.replaceWith(myHeader.$el);
+                $header.trigger('create');
                 var bkprojectsModel;
                 var options;
                 if(projectModel !== undefined && projectModel !== null ){
@@ -249,7 +270,7 @@ define([
                         $page.page();
                         $content.html(projectView.$el);
                         $page.trigger('create');
-                        options.reloadPage = false;
+                        options.reloadPage = true;
                         options.allowSamePageTransition = false;
                         options.transition = 'slidefade';
                         $.mobile.changePage($page, options);

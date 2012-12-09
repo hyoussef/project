@@ -62,7 +62,8 @@ require([
     require(['router'],function(Router){
         console.log('router loaded');
 
-        var router = new Router().initialize();
+        var router = new Router();
+        router.initialize();
         console.log('router initialized');
         global.$ = global.$ || $;
         global.Router = global.Router || router;
