@@ -1,4 +1,7 @@
 */target
+android/pme/assets/www
+android/pme/bin
+android/pme/target
 */.settings
 *.iml
 .idea/
