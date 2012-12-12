@@ -16,8 +16,6 @@ define([
             var self = this;
             self.el = "#" + self.id;
             self.view_model = new EntitiesVwModel(this.collection );
-            self.render();
-
         },
 
 

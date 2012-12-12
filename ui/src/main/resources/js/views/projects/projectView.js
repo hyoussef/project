@@ -19,7 +19,6 @@ define([
             var self = this;
             self.el = "#" + self.id;
             self.view_model = new SingleProjectViewModel(self.model);
-            self.render();
         },
 
 
@@ -40,8 +39,6 @@ define([
             });
             ko.applyBindings(self.view_model, self.$el[0]);
             self.$el.trigger('create');
-
-
         }
     });
     return projectView;

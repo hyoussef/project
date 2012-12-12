@@ -11,8 +11,8 @@ define([
 
     CompaniesVwModel = function(ocompaniesCollection){
         this.collection = ocompaniesCollection;
-
         this.companies = kb.collectionObservable(this.collection);
+        return this;
     }
 
     CompaniesVwModel.prototype.getEntities = function(oCompany){
@@ -20,7 +20,6 @@ define([
         var model = oCompany.model();
         var bkEntitiesCollection = model.get('entities');
         global.Router.showEntities(null, null, null, null, null,bkEntitiesCollection);
-        //kb.release(this);
     }
 
     return  CompaniesVwModel;

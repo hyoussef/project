@@ -10,6 +10,6 @@ ProjectsViewModel.prototype.getProject = function(oProjectVwModel){
     console.log(oProjectVwModel);
     var model =  oProjectVwModel.model();
     global.Router.showProject(null, null, null, null, null,model);
-    //kb.release(this);
+
 }
 })

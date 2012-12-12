@@ -16,8 +16,7 @@ define([
             var self = this;
             self.el = "#" + self.id;
             self.view_model = new CompaniesVwModel(this.collection );
-            self.render();
-
+            //self.render();
         },
 
 
