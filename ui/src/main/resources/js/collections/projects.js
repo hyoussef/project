@@ -13,7 +13,7 @@ define([
               this.url = options.url;
           }
           else if(options.cmpId && options.entId){
-              this.url = 'services/internal/manager/companies/' + options.cmpId + '/entities/' + options.entId + '/projects';
+              this.url = conf.root + 'services/internal/manager/companies/' + options.cmpId + '/entities/' + options.entId + '/projects';
           }
           else{
               $.error("invalid collection parameters need url or company id and entity id");

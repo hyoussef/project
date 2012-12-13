@@ -14,7 +14,7 @@ define([
                 this.url = options.url;
             }
             else if(options.cmpId !==undefined){
-                this.url = 'services/internal/manager/companies/' + options.cmpId + '/entities'
+                this.url = conf.root + 'services/internal/manager/companies/' + options.cmpId + '/entities'
             }
             else{
                 $.error("invalid collection parameters need url or company id");

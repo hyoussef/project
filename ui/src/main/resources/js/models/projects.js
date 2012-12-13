@@ -38,7 +38,7 @@ define([
             options || (options = {});
             if(options.cmpId && options.entId && options.id){
                 this.set({'id': options.id , fromEntity :options.entId });
-                this.url = 'services/internal/manager/companies/' + options.cmpId + '/entities/' + options.entId + '/projects/' + this.get('id');
+                this.url = conf.root + 'services/internal/manager/companies/' + options.cmpId + '/entities/' + options.entId + '/projects/' + this.get('id');
             }
         }
 
