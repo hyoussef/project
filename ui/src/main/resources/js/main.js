@@ -41,25 +41,35 @@ require([
     });
 
     $(document).on( "pagebeforechange", function( e, data ) {
-        if ( typeof data.toPage === "string" ) {
-
-            if(global.Router === undefined || global.Router === null || global.Router.isInitialized === false){
-                var orgEvent = jQuery.extend({}, e);
-                e.preventDefault();
-                setTimeout(function() {
-                    $(document).trigger(orgEvent , data);
-                }, 200);
-                return;
-            }
+        if(global.Router === undefined || global.Router === null || global.Router.isInitialized === false){
+            var orgEvent = jQuery.extend({}, e);
+            e.preventDefault();
+            setTimeout(function() {
+                $(document).trigger(orgEvent , data);
+            }, 200);
+        }else{
             console.log("router is initialized");
             //from now on the router will handle navigation
             $(document).off('pagebeforechange', e.handleObj.handler);
 
+            //we handle the boot time the rooter may not initialized yet
+            //case the target page is specified explicitly
+            if ( typeof data.toPage === "string" ) {
+                var orgEvent = jQuery.extend({}, e);
+                $(document).trigger(orgEvent , data);
+            }else
+            //loading the first page which should be login page
+            {
+                $.mobile.changePage("#login");
+            };
         }
+
+
+
 
     });
 
-    $('#signInForm').on("submit", function() {
+   /* $('#signInForm').on("submit", function() {
         $.mobile.loading( 'show');
         var url = conf.root + 'j_spring_security_check';
         console.log("logging to " + url);
@@ -82,7 +92,7 @@ require([
             }
         });
         return false;
-    });
+    });*/
 
     require(['router'],function(Router){
         console.log('router loaded');

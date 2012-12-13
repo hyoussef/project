@@ -12,7 +12,6 @@ define([
 ], function (HeaderModel,headerTemplate, ko) {
 
     var HeaderView = Backbone.View.extend({
-        //el:$("#projects"),
 
         initialize:function () {
             var self = this;

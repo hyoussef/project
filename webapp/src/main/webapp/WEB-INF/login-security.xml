@@ -16,6 +16,7 @@
 
 		<intercept-url pattern="/css/**" access="permitAll" />
 		<intercept-url pattern="/js/**" access="permitAll" />
+		<intercept-url pattern="/templates/**"    access="permitAll" />
 		<intercept-url pattern="/#login" access="permitAll" />
 		<intercept-url pattern="/*" access="permitAll" />
 		<intercept-url pattern="/**"

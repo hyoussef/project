@@ -24,6 +24,8 @@ define([
             delete view.model;
         }
     }
+
+
     Router = function(){
         this.companiesView;
         this.entitiesView;
@@ -35,9 +37,10 @@ define([
     Router.prototype.initialize = function () {
         var self = this;
         this.app_router = new $.mobile.Router(
-            [{
+            [
+               {
                 "#container(?:[?/](.*))?":{ handler:'showContainer', events:"bC" }
-            },
+                },
                 {
                     "#login(?:[?/](.*))?":{ handler:'showLogin', events:"bC" }
                 },
@@ -54,26 +57,7 @@ define([
                 },
                 {
                     "#MyProject(?:[?/](.*))?":{ handler:'showProject', events:"bC" }
-                }],
-            this /*,
-            {
-                ajaxApp: true,
-                firstMatchOnly : true,
-                defaultHandler : function(type, params, ui, event) {
-                   *//* console.log(arguments);
-                    if(event !==undefined && event !== null){
-                        event.preventDefault();
-                    }
-                    if (params !== undefined && parms !== null && typeof params.toPage !== "string" ) {
-                        return;
-                    }*//*
-                    console.log("Default handler called due to unknown route ("
-                        + type + ", " + ui + ", " + page + ")");
-                    //self.showContainer();
-                },
-                defaultHandlerEvents: "bC"
-            }*/
-        );
+                }],this );
         this.isInitialized = true;
         //
         $("body").show();
@@ -119,11 +103,19 @@ define([
         var u = $.mobile.path.parseUrl(ui.toPage);
         console.log(u.authority);
         $.mobile.loading( 'show');
-
-        var $page = $("#login").trigger('create');
-        $page.page();
-        $.mobile.changePage($page, {dataUrl: "#login"});
-
+        require(['views/home/loginView'],
+            function (LoginView) {
+                var login = new LoginView();
+                login.render();
+                var $page = $("#login");
+                var $content = $page.children(":jqmData(role=content)");
+                $content.empty();
+                $content.html(login.$el);
+                $page.page();
+                $page.trigger('create');
+                $.mobile.changePage($page, {dataUrl: "#login"});
+                $.mobile.loading( 'hide');
+            });
     };
 
 
@@ -389,6 +381,37 @@ define([
                 });
             }
         );
+    };
+
+
+    Router.prototype.handleXhrStatus = function(xhr , callback)
+    {
+        switch (xhr.status){
+            case 401:
+                console.log("bad credential");
+                if(callback){
+                    callback('fail' ,'Bad Credentials, please check your credentials');
+                }
+                break;
+            case 403:
+                console.log("access denied by the server");
+                if(callback){
+                    callback('denied' ,'Sorry we can not log you. please contact your Admin to check you rights!');
+                }
+                if($.mobile.activePage.selector !== "#login"){
+                    $.mobile.changePage("#login");
+                }
+
+                break;
+            case 200:
+                console.log("log in success!");
+                if(callback){
+                    callback('success' ,'login success');
+                }
+                $.mobile.changePage("#container");
+                break;
+        };
+
     };
 
 

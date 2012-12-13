@@ -38,21 +38,7 @@
         <h1>Login</h1>
     </div>
     <div data-role="content">
-        <span id="loginError" class="error">Your credentials are invalid. Please try again.</span>
-        <form id="signInForm" data-ajax="false">
-            <div data-role="fieldcontain">
-                <label for="login_input">Username</label>
-                <input id="login_input" name="j_username" type="text" size="25" autocorrect="off" autocapitalize="off" />
-            </div>
-            <div data-role="fieldcontain">
-                <label for="password">Password</label>
-                <input id="password" name="j_password" type="password" size="25" />
-            </div>
-            <div id="submitDiv" data-role="fieldcontain">
-                <label for="submitinput" ></label>
-                <input id="submitinput" type="submit" value="login" data-inline="true"/>
-            </div>
-        </form>
+
     </div>
 
 </div>

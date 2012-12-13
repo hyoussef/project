@@ -10,7 +10,7 @@ define([
 
         var self = this;
         self.$el = $(mainHomeTemplate);
-        self.$el.attr('id', "#mainContent");
+        self.$el.attr('id', "mainContent");
         //ko.applyBindings(self.view_model, self.$el[0]);
         self.$el.trigger('create');
         return self;

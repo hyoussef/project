@@ -8,6 +8,6 @@
 	</parent>
 	<groupId>common.ui</groupId>
 	<artifactId>ui</artifactId>
-	<name>ui </name>
+	<name>ui</name>
 	<description>common ui ! common ui module</description>
 </project>
