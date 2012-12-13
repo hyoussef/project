@@ -101,7 +101,8 @@ define([
                 var myMainView = new MainHomeView().render();
                 var $page = $("#container");
                 var $content = $page.children(":jqmData(role=content)");
-                $content.empty().html(myMainView.$el);
+                $content.empty();
+                $content.html(myMainView.$el);
                 $page.page();
                 $page.trigger('create');
                 $.mobile.changePage($page, {dataUrl: "#container"});

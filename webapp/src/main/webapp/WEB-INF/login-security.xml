@@ -7,7 +7,7 @@
                             http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<beans:import resource="login-service.xml" />
-	<http use-expressions="true">
+	<http use-expressions="true" access-denied-page="/#login" entry-point-ref="entryPoint">
 		<form-login login-page="/#login"
 			authentication-success-handler-ref="ajaxSuccessHandler"
 			authentication-failure-handler-ref="ajaxFailureHandler"
@@ -22,10 +22,27 @@
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
 		<intercept-url pattern="/services/**"
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
-		<logout delete-cookies="JSESSIONID"
-			success-handler-ref="ajaxLogoutSuccessHandler" />
+		<logout delete-cookies="JSESSIONID" success-handler-ref="ajaxLogoutSuccessHandler" />
 		<remember-me />
 	</http>
+
+	<!-- entry point to avoid redirection when  url intercepted 401 -->
+	<beans:bean id="entryPoint"
+		class="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint">
+		<beans:constructor-arg>
+			<beans:map>
+				<beans:entry key="hasHeader('X-Requested-With','XMLHttpRequest')"
+					value-ref="http401UnauthorizedEntryPoint" />
+			</beans:map>
+		</beans:constructor-arg>
+		<beans:property name="defaultEntryPoint">
+			<beans:bean
+				class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+				 <beans:property name="loginFormUrl" value="/#login"/>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+	<beans:bean id="http401UnauthorizedEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"></beans:bean>
 
 	<beans:bean id="ajaxSuccessHandler"
 		class="com.hn.authenticationHandler.AjaxAuthenticationSuccessHandler">
@@ -33,7 +50,8 @@
 	<beans:bean id="ajaxFailureHandler"
 		class="com.hn.authenticationHandler.AjaxAuthenticationFailureHandler">
 	</beans:bean>
-	<beans:bean id="ajaxLogoutSuccessHandler" class="com.hn.authenticationHandler.AjaxLogoutSuccessHandler"></beans:bean>
+	<beans:bean id="ajaxLogoutSuccessHandler"
+		class="com.hn.authenticationHandler.AjaxLogoutSuccessHandler"></beans:bean>
 
 
 
