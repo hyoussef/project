@@ -6,7 +6,8 @@ define([
     'underscore',
     'backbone',
     'knockback',
-    'jquerymobile'
+    'jquerymobile',
+    'viewModel/panelVwModel'
 ], function (panelTemplate,  ko) {
 
     var popupView = Backbone.View.extend({
@@ -15,15 +16,9 @@ define([
         initialize:function () {
             var self = this;
             self.el = "#" + self.id;
-            this.render();
-            //init
-           /* self.$el.on({
-                popupbeforeposition: function() {
-                    var h = $( window ).height();
 
-                    self.$el.css( "height", h );
-                }
-            });*/
+            this.view_model = new PanelVwModel();
+            this.render();
         },
 
 
@@ -31,14 +26,8 @@ define([
             var self = this;
             self.$el =   $(panelTemplate);
             self.$el.attr('id' , self.id);
-            /*var $panelTemplate =  $(panelTemplate);
-            $content = self.$el.children(":jqmData(role=content)");
-            $panelTemplate.attr('id' , self.id);
+            ko.applyBindings(self.view_model, self.$el[0]);
 
-            $panelTemplate.appendTo($content);
-            $content.trigger('create');
-
-            var $panel=$("#"+self.id);*/
             self.$el.on({
                 popupbeforeposition: function() {
                     var h = $( window ).height();

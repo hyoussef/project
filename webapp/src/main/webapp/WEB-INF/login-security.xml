@@ -7,8 +7,10 @@
                             http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<beans:import resource="login-service.xml" />
-	<http use-expressions="true" access-denied-page="/denied.jsp"  >
+	<http use-expressions="true">
 		<form-login login-page="/#login"
+			authentication-success-handler-ref="ajaxSuccessHandler"
+			authentication-failure-handler-ref="ajaxFailureHandler"
 			always-use-default-target="false" default-target-url="/#container"
 			authentication-failure-url="/#login?error=true" />
 
@@ -18,11 +20,21 @@
 		<intercept-url pattern="/*" access="permitAll" />
 		<intercept-url pattern="/**"
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
-		<intercept-url pattern="/services/**" 
+		<intercept-url pattern="/services/**"
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
-		<logout/>
+		<logout delete-cookies="JSESSIONID"
+			success-handler-ref="ajaxLogoutSuccessHandler" />
 		<remember-me />
 	</http>
+
+	<beans:bean id="ajaxSuccessHandler"
+		class="com.hn.authenticationHandler.AjaxAuthenticationSuccessHandler">
+	</beans:bean>
+	<beans:bean id="ajaxFailureHandler"
+		class="com.hn.authenticationHandler.AjaxAuthenticationFailureHandler">
+	</beans:bean>
+	<beans:bean id="ajaxLogoutSuccessHandler" class="com.hn.authenticationHandler.AjaxLogoutSuccessHandler"></beans:bean>
+
 
 
 	<authentication-manager>

@@ -33,33 +33,57 @@ define([
         return this;
     };
     Router.prototype.initialize = function () {
-        this.app_router = new $.mobile.Router([
-
-            {
+        var self = this;
+        this.app_router = new $.mobile.Router(
+            [{
                 "#container(?:[?/](.*))?":{ handler:'showContainer', events:"bC" }
             },
-            {
-                "#login(?:[?/](.*))?":{ handler:'showLogin', events:"bC" }
-            },
+                {
+                    "#login(?:[?/](.*))?":{ handler:'showLogin', events:"bC" }
+                },
 
-            {
-                "#companies(?:[?/](.*))?":{ handler:'showCompanies', events:"bC" }
-            },
+                {
+                    "#companies(?:[?/](.*))?":{ handler:'showCompanies', events:"bC" }
+                },
 
+                {
+                    "#entities(?:[?/](.*))?":{ handler:'showEntities', events:"bC" }
+                },
+                {
+                    "#projects(?:[?/](.*))?":{ handler:'showProjects', events:"bC" }
+                },
+                {
+                    "#MyProject(?:[?/](.*))?":{ handler:'showProject', events:"bC" }
+                }],
+            this /*,
             {
-                "#entities(?:[?/](.*))?":{ handler:'showEntities', events:"bC" }
-            },
-            {
-                "#projects(?:[?/](.*))?":{ handler:'showProjects', events:"bC" }
-            },
-            {
-                "#MyProject(?:[?/](.*))?":{ handler:'showProject', events:"bC" }
-            }
-        ],this);
+                ajaxApp: true,
+                firstMatchOnly : true,
+                defaultHandler : function(type, params, ui, event) {
+                   *//* console.log(arguments);
+                    if(event !==undefined && event !== null){
+                        event.preventDefault();
+                    }
+                    if (params !== undefined && parms !== null && typeof params.toPage !== "string" ) {
+                        return;
+                    }*//*
+                    console.log("Default handler called due to unknown route ("
+                        + type + ", " + ui + ", " + page + ")");
+                    //self.showContainer();
+                },
+                defaultHandlerEvents: "bC"
+            }*/
+        );
         this.isInitialized = true;
         //
+        $("body").show();
         return this;
     };
+    Router.prototype.defaultHandler= function(type, params ,ui, page, event) {
+        console.log("Default handler called due to unknown route ("
+            + type + ", " + ui + ", " + page + ")");
+        this.showContainer(type, params ,ui, page, event);
+     };
 
     Router.prototype.showContainer = function(type, params, ui, page, event){
         if(event !==undefined && event !== null){
@@ -68,6 +92,9 @@ define([
         if (ui !== undefined && ui !== null && typeof ui.toPage !== "string" ) {
             return;
         }
+        var u = $.mobile.path.parseUrl(ui.toPage);
+        console.log("logging for authority , this is my container its"+ u.href + " and comes from" + u.authority);
+
         $.mobile.loading( 'show');
         require(['views/home/main'],
             function (MainHomeView) {
@@ -88,6 +115,8 @@ define([
         if (ui !== undefined && ui !== null && typeof ui.toPage !== "string" ) {
             return;
         }
+        var u = $.mobile.path.parseUrl(ui.toPage);
+        console.log(u.authority);
         $.mobile.loading( 'show');
 
         var $page = $("#login").trigger('create');
@@ -141,6 +170,8 @@ define([
                         },
                         error: function(collection ,xhr, options){
                             alert("error fetching companies and projects");
+                            console.log("the url that failed was "+ collection.url());
+                            console.log("status : " + xhr.status);
                             $.mobile.loading( 'hide');
                         }
                     });
@@ -209,8 +240,10 @@ define([
                         delete $header;
                         delete options;
                     },
-                    error: function(collection ,response){
+                    error: function(collection ,xhr){
                         $.mobile.loading( 'hide');
+                        console.log("the url that failed was "+ collection.url);
+                        console.log("status : " + xhr.status);
                         alert("error fetching entities");
                     }
                 });
@@ -275,8 +308,11 @@ define([
                         delete $header;
                         delete options;
                     },
-                    error: function(collection ,response){
+                    error: function(collection ,xhr, options){
                         $.mobile.loading( 'hide');
+                        console.log("the url that failed was "+ collection.url());
+                        console.log("status : " + xhr.status);
+                        window.location = "#login"
                         alert("error fetching projects");
                     }
                 });
@@ -343,8 +379,10 @@ define([
                         delete $header;
                         delete options;
                     },
-                    error: function(collection ,response){
+                    error: function(model ,xhr, options){
                         $.mobile.loading( 'hide');
+                        console.log("the url that failed was "+ model.url());
+                        console.log("status : " + xhr.status);
                         alert("error fetching projects");
                     }
                 });

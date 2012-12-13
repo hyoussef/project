@@ -9,7 +9,8 @@ define([
             // See the tests, or Backbone-tastypie, for an example.
             var url = ''
             if(conf.allowCrossDomainPages){
-                url = conf.root + '/services/internal/manager/companies/';
+                console.log("models will use absolute root");
+                url = conf.root + 'services/internal/manager/companies/';
             }else{
                 url = 'services/internal/manager/companies/'
             }

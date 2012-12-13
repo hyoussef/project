@@ -32,10 +32,10 @@ require([
         $.support.cors = true;
         $.mobile.allowCrossDomainPages = conf.allowCrossDomainPages;
         //$.mobile.phonegapNavigationEnabled = true;
-        //$.mobile.ajaxEnabled = true;
-        $.mobile.buttonMarkup.hoverDelay = 50;
-
+        $.mobile.ajaxEnabled = true;
+        $.mobile.buttonMarkup.hoverDelay = 100;
         $.mobile.defaultPageTransition ='slide';
+        //$.mobile.pushStateEnabled = false;
         console.log("mobile init");
         console.log("mobile init");
     });
@@ -57,6 +57,31 @@ require([
 
         }
 
+    });
+
+    $('#signInForm').on("submit", function() {
+        $.mobile.loading( 'show');
+        var url = conf.root + 'j_spring_security_check';
+        console.log("logging to " + url);
+        // Submit the form
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: $('#signInForm').serialize(),
+            complete: function(transport) {
+                if(transport.status == 200) {
+                    //history.back();
+                    console.log("log on succeed");
+                    $.mobile.changePage("#container");
+                } else {
+                    console.log("log on Failed");
+                    $.mobile.loading( 'hide');
+
+                    $('#loginError').show();
+                }
+            }
+        });
+        return false;
     });
 
     require(['router'],function(Router){

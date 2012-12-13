@@ -13,7 +13,7 @@ define([
                 key: 'entities',
                 relatedModel: EntityModel,
                 collectionType: EntitiesCollection,
-                collectionOptions: function( instance ) { return { 'url':'services/internal/manager/companies/' + instance.id + '/entities'  } } ,
+                collectionOptions: function( instance ) { return { 'url':conf.root + 'services/internal/manager/companies/' + instance.id + '/entities'  } } ,
                 reverseRelation: {
                     key: 'fromCompany'
                 }

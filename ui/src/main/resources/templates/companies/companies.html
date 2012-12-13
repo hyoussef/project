@@ -1,13 +1,11 @@
 <div>
     <ul  data-bind="foreach: companies" data-role='listview' data-filter='true' data-filter-placeholder='Search company...' data-inset="true">
         <li data-bind="click: $root.getEntities">
-            <a href="#">
+            <!--<a href="#">-->
                 <h3  data-bind="text: name"></h3>
                 <!--<p data-bind="text: description"></p>-->
                 <p data-bind="text: name"> </p>
-                <span class="ui-li-count" data-bind="text: entities().length"></span>
-            </a>
-
+<!--<span class="ui-li-count" data-bind="text: entities().length"></span></a>-->
         </li>
     </ul>
 </div>
