@@ -4,7 +4,7 @@ define([
     'jqmr',
     'jquerymobile'
 ], function ($) {
-    _cleanMememory = function (view){
+    var _cleanMemory = function (view){
         if(view){
             view.remove();
             view.undelegateEvents();
@@ -24,6 +24,22 @@ define([
             delete view.model;
         }
     }
+
+    var _checkConnection = function() {
+        var networkState = navigator.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.NONE]     = 'No network connection';
+        return {networkState :networkState, state : states[networkState]} ;
+
+    }
+
 
 
     Router = function(){
@@ -133,7 +149,7 @@ define([
         require(['views/companies/list', 'views/header/headerView', 'collections/companies', 'models/header'],
             function (CompaniesListView, HeaderView,CompaniesCollection, HeaderModel) {
                 try{
-                    _cleanMememory(self.companiesView);
+                    _cleanMemory(self.companiesView);
 
                     // Call render on the module we loaded in via the dependency array'views/projects/list'
                     var $content = $page.children(":jqmData(role=content)");
@@ -191,7 +207,7 @@ define([
         var $page = $("#entities");
         console.log(type);
         require(['views/entities/list','views/header/headerView', 'collections/entities',  'models/header'], function(EntitiesView, HeaderView, EntitiesCollection , HeaderModel){
-                _cleanMememory(self.entitiesView);
+                _cleanMemory(self.entitiesView);
 
                 var $content = $page.children(":jqmData(role=content)");
                 var $header =  $page.children(":jqmData(role=header)");
@@ -256,7 +272,7 @@ define([
         var $page = $("#projects");
         console.log(type);
         require(['views/projects/list','views/header/headerView', 'collections/projects', 'models/header'], function(ProjectListView ,HeaderView, ProjectsCollection, HeaderModel){
-                _cleanMememory(self.projectsView);
+                _cleanMemory(self.projectsView);
 
                 var $content = $page.children(":jqmData(role=content)");
                 var $header =  $page.children(":jqmData(role=header)");
@@ -326,7 +342,7 @@ define([
         $.mobile.loading( 'show');
         var $page = $("#MyProject");
         require(['views/projects/projectView','views/header/headerView', 'models/projects' , 'models/header'], function(ProjectView,HeaderView, ProjectsModel, HeaderModel){
-                _cleanMememory(self.myprojView);
+                _cleanMemory(self.myprojView);
 
                 var $content = $page.children(":jqmData(role=content)");
                 var $header =  $page.children(":jqmData(role=header)");
@@ -387,6 +403,19 @@ define([
     Router.prototype.handleXhrStatus = function(xhr , callback)
     {
         switch (xhr.status){
+            case 404:
+                console.log("connection problem! resources not found!");
+                var message ;
+                 var netword = _checkConnection();
+                if(netword.networkState === Connection.NONE || netword.networkState === Connection.UNKNOWN){
+                     message = _checkConnection().state;
+                }else{
+                    message = "resource not found";
+                }
+                if(callback){
+                    callback('fail' ,message);
+                };
+                break;
             case 401:
                 console.log("bad credential");
                 if(callback){

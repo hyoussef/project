@@ -77,8 +77,8 @@ define([
 
 
 
+
     return {
         initialize: initialize
-
     };
 });
