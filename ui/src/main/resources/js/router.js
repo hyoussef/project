@@ -213,21 +213,25 @@ define([
                 var $header =  $page.children(":jqmData(role=header)");
                 $header.children().remove();
                 $content.children().remove();
-                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Entities"})});
-                $header.html(myHeader.$el);
 
+                var title;
                 if(entitiesCollection !== undefined && entitiesCollection !== null ){
                     options = {dataUrl: "#entities?cmp="+ entitiesCollection.fromCompany.get('id') };
+                    title = entitiesCollection.fromCompany.get('name');
+
                 } else
                 {
                     var u = $.mobile.path.parseUrl(ui.toPage);
                     var queryParamsObj = global.Router.app_router.getParams(params[1]);
                     if(!queryParamsObj){
-                        $.error("invalid query params!");;
+                        $.error("invalid query params!");
                     }
                     entitiesCollection = new EntitiesCollection(null , {cmpId :queryParamsObj.cmp });
                     options = {dataUrl:u.hash };
+                    title = "Entities";
                 };
+                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : title} )});
+                $header.html(myHeader.$el);
                 entitiesCollection.reset();
                 self.entitiesView = new EntitiesView({id :'entities_list' , collection :entitiesCollection});
 
@@ -279,12 +283,13 @@ define([
 
                 $header.children().remove();
                 $content.children().remove();
-                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Projects"})});
-                $header.replaceWith(myHeader.$el);
-                $header.trigger('create');
+
                 var options;
+                var title;
                 if(projectsCollection !== undefined && projectsCollection !== null ){
                     options = {dataUrl: "#projects?ent="+ projectsCollection.fromEntity.get('id') +"&cmp="+projectsCollection.fromEntity.get('fromCompany').get('id') };
+                    title = projectsCollection.fromEntity.get('fromCompany').get('name') + ": " + projectsCollection.fromEntity.get('name');
+
                 } else
                 {
                     var u = $.mobile.path.parseUrl(ui.toPage);
@@ -294,7 +299,11 @@ define([
                     }
                     projectsCollection = new ProjectsCollection(null , {cmpId :queryParamsObj.cmp , entId :queryParamsObj.ent  });
                     options = {dataUrl:u.hash};
+                    title = "Projects";
                 }
+                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : title})});
+                $header.replaceWith(myHeader.$el);
+                $header.trigger('create');
                 projectsCollection.reset();
                 self.projectsView = new ProjectListView({id :'projects_list' , collection :projectsCollection});
 
@@ -376,7 +385,6 @@ define([
                         $page.trigger('create');
                         options.reloadPage = false;
                         options.allowSamePageTransition = false;
-                        options.transition = 'slidefade';
                         $.mobile.changePage($page, options);
                         $.mobile.loading( 'hide');
 
