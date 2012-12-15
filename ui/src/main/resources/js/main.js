@@ -34,7 +34,7 @@ require([
         //$.mobile.phonegapNavigationEnabled = true;
         $.mobile.ajaxEnabled = true;
         $.mobile.buttonMarkup.hoverDelay = 33;
-        $.mobile.defaultPageTransition ='flip';
+        $.mobile.defaultPageTransition ='pop';
         //$.mobile.pushStateEnabled = false;
         console.log("mobile init");
     });

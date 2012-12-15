@@ -357,12 +357,12 @@ define([
                 var $header =  $page.children(":jqmData(role=header)");
                 $header.children().remove();
                 $content.children().remove();
-                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : "Project"})});
-                $header.replaceWith(myHeader.$el);
-                $header.trigger('create');
+
                 var options;
+                var title;
                 if(projectModel !== undefined && projectModel !== null ){
-                    options = {dataUrl: "#MyProject?ent="+ projectModel.get('fromEntity').get('id') +"&cmp="+ projectModel.get('fromEntity').get('fromCompany').get('id')+"&id="+  projectModel.get('id')}
+                    options = {dataUrl: "#MyProject?ent="+ projectModel.get('fromEntity').get('id') +"&cmp="+ projectModel.get('fromEntity').get('fromCompany').get('id')+"&id="+  projectModel.get('id')};
+                    title = projectModel.get('fromEntity').get('fromCompany').get('name') + ": " + projectModel.get('fromEntity').get('name');
                 } else
                 {
                     var u = $.mobile.path.parseUrl(ui.toPage);
@@ -373,7 +373,11 @@ define([
                     projectModel = new ProjectsModel(null , {cmpId :queryParamsObj.cmp , entId :queryParamsObj.ent , id : queryParamsObj.id });
                     //options = {dataUrl:"#MyProject?ent="+ queryParamsObj.ent + "cmp="+ bkprojectsModel.cmpId +"&id="+  queryParamsObj.id};
                     options = {dataUrl:u.hash };
+                    title = "Project";
                 }
+
+                var myHeader = new HeaderView({id: 'companies_header' , model : new HeaderModel({title : title})});
+                $header.replaceWith(myHeader.$el);
 
                 self.myprojView = new ProjectView({ model :projectModel});
 

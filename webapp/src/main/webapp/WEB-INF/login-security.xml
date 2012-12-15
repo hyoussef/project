@@ -24,7 +24,7 @@
 		<intercept-url pattern="/services/**"
 			access="isAuthenticated() and hasRole('ROLE_USER')" />
 		<logout delete-cookies="JSESSIONID" success-handler-ref="ajaxLogoutSuccessHandler" />
-		<remember-me />
+		<remember-me data-source-ref="loginDataSource"/>
 	</http>
 
 	<!-- entry point to avoid redirection when  url intercepted 401 -->

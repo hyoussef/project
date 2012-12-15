@@ -1,4 +1,4 @@
-<div id="loginContent">
+<div id="loginContent" style="margin: 0 auto; margin-top:auto; margin-bottom:0; ">
     <span id="loginError" data-bind="text: statusMessage" ></span>
     <form id="signInForm" data-ajax="false">
         <div data-role="fieldcontain">
@@ -9,9 +9,14 @@
             <label for="password">Password</label>
             <input id="password" name="j_password" type="password" size="25" />
         </div>
-        <div id="submitDiv" data-role="fieldcontain">
-            <label for="submitinput" ></label>
-            <input id="submitinput" data-bind="click: $root.doLogin" type="submit" value="login" data-inline="true"/>
-        </div>
+
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-a">
+                <label><input id="rememberMe"  type='checkbox' name='_spring_security_remember_me' data-inline="true"/> Remember me </label>
+            </div>
+            <div class="ui-block-a">
+                <input id="submitinput" data-bind="click: $root.doLogin" type="submit" value="login" />
+            </div>
+        </fieldset>
     </form>
 </div>
