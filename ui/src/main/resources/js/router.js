@@ -5,23 +5,31 @@ define([
     'jquerymobile'
 ], function ($) {
     var _cleanMemory = function (view){
-        if(view){
-            view.remove();
-            view.undelegateEvents();
-            view.unbind();
+        try{
+            if(view){
+                kb.release(view.view_model);
+                if(view.$el){
+                    view.remove();
+                    view.undelegateEvents();
+                    view.unbind();
+                }
+                if(view.collection){
+                    Backbone.Relational.store.unregister(view.collection);
+                    view.collection.reset();
+                }
+               /* if(view.model){
+                    Backbone.Relational.store.unregister(view.model);
+                    kb.release(view.model);
+                };*/
 
-            if(view.collection){
-                view.collection.reset();
+                delete view.view_model;
+                delete view.$el;
+                delete view.collection;
+                delete view.model;
             }
-            if(view.model){
-                kb.release(view.model);
-            };
-            kb.release(view.view_model);
-
-            delete view.view_model;
-            delete view.$el;
-            delete view.collection;
-            delete view.model;
+        }
+        catch(e){
+            console.log(e);
         }
     }
 
@@ -150,6 +158,9 @@ define([
             function (CompaniesListView, HeaderView,CompaniesCollection, HeaderModel) {
                 try{
                     _cleanMemory(self.companiesView);
+                    _cleanMemory(self.entitiesView);
+                    _cleanMemory(self.projectsView);
+                    _cleanMemory(self.myprojView);
 
                     // Call render on the module we loaded in via the dependency array'views/projects/list'
                     var $content = $page.children(":jqmData(role=content)");
@@ -208,6 +219,8 @@ define([
         console.log(type);
         require(['views/entities/list','views/header/headerView', 'collections/entities',  'models/header'], function(EntitiesView, HeaderView, EntitiesCollection , HeaderModel){
                 _cleanMemory(self.entitiesView);
+                _cleanMemory(self.projectsView);
+                _cleanMemory(self.myprojView);
 
                 var $content = $page.children(":jqmData(role=content)");
                 var $header =  $page.children(":jqmData(role=header)");
@@ -277,6 +290,7 @@ define([
         console.log(type);
         require(['views/projects/list','views/header/headerView', 'collections/projects', 'models/header'], function(ProjectListView ,HeaderView, ProjectsCollection, HeaderModel){
                 _cleanMemory(self.projectsView);
+                _cleanMemory(self.myprojView);
 
                 var $content = $page.children(":jqmData(role=content)");
                 var $header =  $page.children(":jqmData(role=header)");

@@ -31,11 +31,11 @@ require([
         $.mobile.page.prototype.options.addBackBtn = true;
         $.support.cors = true;
         $.mobile.allowCrossDomainPages = conf.allowCrossDomainPages;
-        //$.mobile.phonegapNavigationEnabled = true;
+        $.mobile.phonegapNavigationEnabled = true;
         $.mobile.ajaxEnabled = true;
         $.mobile.buttonMarkup.hoverDelay = 33;
-        $.mobile.defaultPageTransition ='pop';
-        //$.mobile.pushStateEnabled = false;
+        $.mobile.defaultPageTransition ='none';
+        $.mobile.pushStateEnabled = false;
         console.log("mobile init");
     });
 
