@@ -5,7 +5,30 @@
 	<artifactId>pmeAndroid</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pme for android</name>
+	<packaging>apk</packaging>
+
+	<properties>
+		<platform.version>4.1.1.4</platform.version>
+	</properties>
+
+
+
+
 	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>${platform.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- <dependency> <groupId>org.apache.download.cordova</groupId> <artifactId>phonegap-phonegap</artifactId> 
+			<version>1.9.0</version> <classifier>android</classifier> </dependency> -->
+		<dependency>
+			<groupId>org.apache.cordova</groupId>
+			<artifactId>cordova</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>common.ui</groupId>
 			<artifactId>ui</artifactId>
@@ -13,12 +36,13 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<sourceDirectory>assets</sourceDirectory>
+		 <finalName>${project.artifactId}</finalName>
+        <sourceDirectory>src</sourceDirectory>
 		<plugins>
-			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+
 				<executions>
 					<execution>
 						<id>unpack-my-lib</id>
@@ -35,12 +59,49 @@
 									<overWrite>true</overWrite>
 								</artifactItem>
 							</artifactItems>
+
 							<outputDirectory>${project.basedir}/assets/www</outputDirectory>
 							<overWriteReleases>true</overWriteReleases>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+			
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <sdk>
+                        <!-- platform or api level (api level 4 = platform 1.6)-->
+                        <platform>16</platform>
+                    </sdk>
+                    <emulator>
+                        <!-- the name of the avd device to use for starting the emulator -->
+                        <avd>default</avd>
+                    </emulator>
+                    <deleteConflictingFiles>true</deleteConflictingFiles>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- version 2.3 defaults to java 1.5, so no further configuration needed-->
+                <version>2.3</version>
+            </plugin>
+
+
 		</plugins>
+		
 	</build>
 </project>
